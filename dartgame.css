@@ -1,11 +1,11 @@
 body{
      background-image: url('https://images.pexels.com/photos/21300/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
      background-size: cover;
-    
+    max-height: 100vh;
 }
 .dart-body {
      display: flex;
-     padding: 1em;
+     padding: 0em;
 }
 body div{
      display: grid;
@@ -32,7 +32,7 @@ body span {
 }
 
 .add, .remove {
-     margin: 1em 0;
+     margin: .5em 0;
      padding: .8em;
      width: 10em;
      color: white;
@@ -75,7 +75,26 @@ input[type='checkbox'] {
      accent-color: rgb(16, 66, 229);
 }
 
-
+/* .rounded{
+     width: 100px;
+     height: 50px;
+     margin-top: -2.7em;
+     margin-left: -2em;
+     background-image: url('https://cdn1.iconfinder.com/data/icons/business-sets/512/target-512.png');
+     background-size: contain;
+     background-repeat: no-repeat;
+     
+   } */
+   .pointed{
+     width: 70px;
+     height: 50px;
+     margin-top: -2.7em;
+     margin-left: -.2em;
+     background-image: url('https://purepng.com/public/uploads/large/purepng.com-dartdartsdartthrowing-sportsmall-missilescircular-dartboard-1701528135276x1pry.png');
+     background-size: contain;
+     background-repeat: no-repeat;
+   }
+   
 
  /*   input[type="checkbox"]:checked:after {
    
