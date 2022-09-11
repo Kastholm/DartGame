@@ -1,0 +1,101 @@
+body{
+     background-image: url('https://images.pexels.com/photos/21300/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+     background-size: cover;
+    
+}
+.dart-body {
+     display: flex;
+     padding: 1em;
+}
+body div{
+     display: grid;
+     text-align: center;
+}
+body span {
+     padding: .5em 0;
+     border: 2px solid black;
+     width: fit-content;
+     min-width: 4em;
+}
+.number span:nth-child(even){
+     background-color: rgb(157, 242, 104);
+}
+.number span:nth-child(odd){
+     background-color: rgb(103, 174, 245);
+}
+
+.player span:nth-child(even){
+     background-color: rgb(241, 207, 136);
+}
+.player span:nth-child(odd){
+     background-color: rgb(96, 231, 175);
+}
+
+.add, .remove {
+     margin: 1em 0;
+     padding: .8em;
+     width: 10em;
+     color: white;
+     background-color: rgb(242, 11, 138);
+}
+
+.add:hover{
+     background-color: aqua;
+     color: black;
+}
+
+span {
+     min-height: 1em;
+     max-height: 1em;
+     padding: 5em 0;
+}
+
+.check{
+     width: 13.7em;
+     padding: 1.15em 0;
+}
+.count, .empty{
+     padding: .5em 0;
+     font-size: 1.6rem;
+     border: 2px solid black;
+     width: 8.5em;
+}
+
+input {
+     width: 8.5em;
+     text-align: center;
+     margin: 0 0.8em;
+     cursor: pointer;
+     font-size: 1.3rem;
+}
+input[type='checkbox'] {
+     content: '';
+     width: 28px;
+     height: 28px;    
+     accent-color: rgb(16, 66, 229);
+}
+
+
+
+ /*   input[type="checkbox"]:checked:after {
+   
+     font-family: 'FontAwesome';
+     content: "X";
+       padding: 0.25em 0.25em;
+       border-radius: 10px;
+       background: rgb(68, 255, 0);
+       
+     
+ } */
+
+
+/*  input[type="checkbox"]:checked:after {
+   
+     font-family: 'FontAwesome';
+     content: "X";
+       padding: 0.25em 0.25em;
+       border-radius: 10px;
+       background: rgb(68, 255, 0);
+       
+     
+ } */
