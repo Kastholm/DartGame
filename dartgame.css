@@ -1,5 +1,5 @@
 body{
-     background-image: url('/img/dart-skive.jpg');
+     background-image: url('img/dart-skive.jpg');
      background-size: cover;
     max-height: 100vh;
     font-family: montserrat, sans-serif;
