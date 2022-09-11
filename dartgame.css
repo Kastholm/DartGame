@@ -2,6 +2,11 @@ body{
      background-image: url('/img/dart-skive.jpg');
      background-size: cover;
     max-height: 100vh;
+    font-family: montserrat, sans-serif;
+
+font-weight: 300;
+
+font-style: normal;
 }
 .dart-body {
      display: flex;
@@ -25,17 +30,20 @@ body{
 }
  
 .number span:nth-child(even){
-     background-color: rgb(157, 242, 104);
+     background-color: #eb8084;
 }
 .number span:nth-child(odd){
-     background-color: rgb(103, 174, 245);
+     background-color: #4ed494;
 }
 
 .player span:nth-child(even){
-     background-color: rgb(241, 207, 136);
+     background-color: #eb8084;
 }
 .player span:nth-child(odd){
-     background-color: rgb(96, 231, 175);
+     background-color: #4ed494;
+}
+.empty {
+     background-color: #F9DFBC !important;
 }
 
 button {
@@ -52,7 +60,7 @@ button {
 
 .restart {
      margin-left: auto;
-     background-color: blue;
+     background-color: #eb8084;
 }
 i{
      margin: 0 .5em;
@@ -146,3 +154,24 @@ input[type='checkbox'] {
        
      
  } */
+
+ input[type="checkbox"] { /* change "blue" browser chrome to yellow */
+     filter: invert(100%) hue-rotate(18deg) brightness(1.7);
+   }
+   input[type='checkbox']:checked:after {
+     content: '\2713';
+     color:white;
+   }
+
+  /*  input[type='checkbox']{
+     width: 30px !important;
+     height: 30px !important;
+     margin: 5px;
+     -webkit-appearance: none;
+     -moz-appearance: none;
+     -o-appearance: none;
+     appearance:none;
+     outline: 2px solid lightblue;
+     box-shadow: none;
+     font-size: 2em;
+   } */
