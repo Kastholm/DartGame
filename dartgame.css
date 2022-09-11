@@ -1,5 +1,5 @@
 body{
-     background-image: url('https://images.pexels.com/photos/21300/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+     background-image: url('/img/dart-skive.jpg');
      background-size: cover;
     max-height: 100vh;
 }
@@ -7,16 +7,23 @@ body{
      display: flex;
      padding: 0em;
 }
-body div{
+.dart-body div{
      display: grid;
      text-align: center;
 }
-body span {
-     padding: .5em 0;
+.dart-body span, .player span {
+     
      border: 2px solid black;
      width: fit-content;
      min-width: 4em;
+     min-height: 1em;
+     max-height: 1em;
 }
+.check{
+     padding: .5em 0;
+     min-width: 13.7em !important;
+}
+ 
 .number span:nth-child(even){
      background-color: rgb(157, 242, 104);
 }
@@ -31,12 +38,24 @@ body span {
      background-color: rgb(96, 231, 175);
 }
 
-.add, .remove {
-     margin: .5em 0;
-     padding: .8em;
+button {
+     margin: .5em .5em 0 0;
+     padding: 1.1em;
+     font-size: 1.3rem;
      width: 10em;
      color: white;
-     background-color: rgb(242, 11, 138);
+     background-color: rgb(242, 11, 11);
+}
+.add{
+     background-color: green;
+}
+
+.restart {
+     margin-left: auto;
+     background-color: blue;
+}
+i{
+     margin: 0 .5em;
 }
 
 .add:hover{
@@ -44,11 +63,7 @@ body span {
      color: black;
 }
 
-span {
-     min-height: 1em;
-     max-height: 1em;
-     padding: 5em 0;
-}
+
 
 .check{
      width: 13.7em;
@@ -59,6 +74,19 @@ span {
      font-size: 1.6rem;
      border: 2px solid black;
      width: 8.5em;
+}
+.empty {
+     position: relative;
+}
+.empty i {
+     position: absolute;
+     right: -10px;
+     top: 0;
+     color: rgb(115, 13, 13);
+     font-size: 2.2rem;
+}
+.empty i:hover{
+     cursor: pointer;
 }
 
 input {

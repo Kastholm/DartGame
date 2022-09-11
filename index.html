@@ -11,9 +11,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
-
     <div class="cursor rounded"></div>
     <div class="cursor pointed"></div>
 
@@ -34,12 +34,16 @@
       </div>
     </div>
 
-    <button class="add">Tilføj Spiller</button>
-    <button class="remove">Fjern Spiller</button>
-
-
-
-
-    
+    <box style="display: flex">
+      <button class="add">
+        Tilføj Spiller<i class="fa-solid fa-user-plus"></i>
+      </button>
+      <button class="remove">
+        Fjern Spiller<i class="fa-solid fa-user-minus"></i>
+      </button>
+      <button class="restart">
+        Genstart<i class="fa-solid fa-arrows-rotate"></i>
+      </button>
+    </box>
   </body>
 </html>
