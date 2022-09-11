@@ -134,7 +134,7 @@ players.forEach((box, index) => {
 });
  */
 
-function boxAdd() {
+/* function boxAdd() {
   let checky = document.querySelector(".checky");
   let checkyy = document.querySelector(".checkyy");
   let checkyyy = document.querySelector(".checkyyy");
@@ -144,4 +144,4 @@ function boxAdd() {
       alert("Checkbox checked!");
     }
   });
-}
+} */
