@@ -11,7 +11,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="https://use.typekit.net/fjz0fyq.css">
+    <link rel="stylesheet" href="https://use.typekit.net/fjz0fyq.css" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
@@ -36,12 +36,21 @@
     </div>
 
     <box style="display: flex">
+      <button style="display: none;" class="prev">
+        Forrige Spiller<!-- <i class="fa-solid fa-user-plus"></i> -->
+      </button>
+      <button style="display: none;" class="next">
+        Næste Spiller<!-- <i class="fa-solid fa-user-plus"></i> -->
+      </button>
       <button class="add">
         Tilføj Spiller<i class="fa-solid fa-user-plus"></i>
       </button>
-      <!-- <button class="remove">
+      <button onclick="remPlayer()" class="remove">
         Fjern Spiller<i class="fa-solid fa-user-minus"></i>
-      </button> -->
+      </button>
+      <button style="display: none;" class="start">
+        Start Spil<i class="fa-solid fa-arrows-rotate"></i>
+      </button>
       <button class="restart">
         Genstart<i class="fa-solid fa-arrows-rotate"></i>
       </button>

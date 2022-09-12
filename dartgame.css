@@ -59,8 +59,12 @@ button {
 }
 
 .restart {
+     background-color: #ff0008;
      margin-left: auto;
-     background-color: #eb8084;
+}
+.start{
+     margin-left: auto;
+     background-color: GREEN;
 }
 i{
      margin: 0 .5em;
@@ -125,6 +129,8 @@ input[type='checkbox'] {
      width: 70px;
      height: 50px;
      margin-top: -2.7em;
+     z-index: 99;
+     position: relative;
      margin-left: -.2em;
      background-image: url('https://purepng.com/public/uploads/large/purepng.com-dartdartsdartthrowing-sportsmall-missilescircular-dartboard-1701528135276x1pry.png');
      background-size: contain;
@@ -175,3 +181,22 @@ input[type='checkbox'] {
      box-shadow: none;
      font-size: 2em;
    } */
+
+   .activePlayer {
+        transition: .2s;
+     
+     transform: scale(1.03);
+     box-shadow:
+     0 10px 10px hsl(0deg 0% 0% / .275),
+     0 20px 20px hsl(0deg 0% 0% / .275),
+     0 40px 40px hsl(0deg 0% 0% / .275),
+     0 80px 80px hsl(0deg 0% 0% / .275),
+     0 160px 160px hsl(0deg 0% 0% / .275)
+   ;
+   }
+   .activePlayer .empty {
+     background-color: green !important;
+}
+   .activePlayer .empty input {
+        
+   }
