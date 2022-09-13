@@ -223,13 +223,49 @@ input[type='checkbox'] {
         top: 2%;
         text-align: center;
         overflow: scroll;
+        transition: .5s;
    }
    .shortcuts {
         top: 40%;
    }
-   .activity h2 {
+   .fa-circle-xmark, .fa-arrow-left{
+        position: absolute;
+        right: -5%;
+        top: -10%;
+        font-size: 2rem;
+        color: red;
+        padding: 1em .2em;
+        z-index: 2;
+   }
+   .activity h2, .shortcuts h2 {
         text-align: center;
+        opacity: 100;
    }
    .activity p {
         margin: .5em 0;
    }
+.minimize h2{
+     opacity: 0;
+     z-index: 1;
+}
+   .minimize {
+        width: 3em;
+        height: 3em;
+        overflow: hidden;
+        right: 0%;
+        transition: .5s;
+   }
+   .minimize .actiExit {
+     right: -30% !important;
+     top: -50% !important;
+     color: green;
+   }
+   .minimize .shortExit {
+     right: -30% !important;
+     top: -50% !important;
+     color: green;
+   }
+  /*  .minimize p, h2 {
+        opacity: 0;
+   }
+   */

@@ -249,6 +249,7 @@ function StartSpil() {
         document.querySelectorAll(".player")[player + 1].classList.add('.activePlayer'); */
     }
   });
+
   // KeyPress Functions
   window.addEventListener("keydown", logKey);
   function logKey(e) {
@@ -281,8 +282,7 @@ function StartSpil() {
             .querySelectorAll(".player")
             [player + 1].classList.remove("activePlayer");
       }
-    }
-    else if (e.code === "KeyS") {
+    } else if (e.code === "KeyS") {
       if (startGame === true) {
         document.querySelectorAll(".player")[0].classList.add("activePlayer");
         document.querySelector(".start").innerHTML = "Stop Spil";
@@ -292,19 +292,173 @@ function StartSpil() {
         document.querySelector(".prev").style.display = "block";
       } else if (startGame === false) {
         document.querySelector(".start").innerHTML = "Start Spil";
-        document.querySelectorAll(".player")[0].classList.remove("activePlayer");
+        document
+          .querySelectorAll(".player")[0]
+          .classList.remove("activePlayer");
         document.querySelector(".add").style.display = "block";
         document.querySelector(".remove").style.display = "block";
         document.querySelector(".next").style.display = "none";
         document.querySelector(".prev").style.display = "none";
       }
       startGame = !startGame;
-    }
-    else if (e.code === "KeyT") {
-      console.log('t')
+    } else if (e.code === "KeyT") {
+      (async () => {
+        const { value: text } = await Swal.fire({
+          title: "Skriv holdets navn",
+          input: "text",
+          inputLabel: "Afslut med Enter",
+          inputPlaceholder: "Skriv holdets navn",
+        });
+
+        if (text) {
+          const addPlayer = document.createElement("div");
+          addPlayer.innerHTML = `<div class="player">
+          <span class="empty"><input value='${text}'></input></span>
+          <span class="check checkTyve"><input  class='tyve' type="checkbox"><input class='tyve' type="checkbox"><input class='tyve' type="checkbox"></input></span>
+          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
+          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
+          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
+          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
+          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
+          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
+          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
+          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
+          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
+          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
+          </div>`;
+          document.querySelector(".dart-body").appendChild(addPlayer);
+          document.querySelector(".start").style.display = "block";
+          document.querySelector(".restart").style.marginLeft = ".5em";
+          const log = document.createElement("p");
+          document.querySelector(".activity").appendChild(log);
+          log.innerHTML = `<p>'${text}' er blevet føjet til spillet</p>`;
+          document
+            .querySelector(".checkTyve")
+            .addEventListener("click", function tyvve() {
+              const log = document.createElement("p");
+              document.querySelector(".activity").appendChild(log);
+              log.innerHTML = `<p>'${text}' fik en 20'er</p>`;
+            });
+          /*  if(document.querySelectorAll('.tyve')[0].checked & document.querySelectorAll('.tyve')[1].checked && document.querySelectorAll('.tyve')[2].checked){
+            document.querySelector('.tyve').style.fontSize = "5rem";
+          } */
+        }
+      })();
+    } else if (e.code === "KeyF") {
+      Swal.fire({
+        title: "Vil du slette spiller og progression?",
+        showDenyButton: true,
+        confirmButtonText: "Slet",
+        denyButtonText: `Slet ikke`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          switch (document.querySelectorAll(".player").length) {
+            case 1:
+              document.querySelectorAll(".player")[0].remove();
+              break;
+            case 2:
+              document.querySelectorAll(".player")[1].remove();
+              break;
+            case 3:
+              document.querySelectorAll(".player")[2].remove();
+              break;
+            case 4:
+              document.querySelectorAll(".player")[3].remove();
+              break;
+            case 5:
+              document.querySelectorAll(".player")[4].remove();
+              break;
+            case 6:
+              document.querySelectorAll(".player")[5].remove();
+              break;
+            case 7:
+              document.querySelectorAll(".player")[6].remove();
+              break;
+            case 8:
+              document.querySelectorAll(".player")[7].remove();
+              break;
+          }
+        } else if (result.isDenied) {
+          Swal.fire("Spilleren er ikke slettet", "", "info");
+        }
+      });
+    } else if (e.code === "KeyG") {
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-success",
+          cancelButton: "btn btn-danger",
+        },
+        buttonsStyling: false,
+      });
+      swalWithBootstrapButtons
+        .fire({
+          title: "Vil du genstarte spillet?",
+          text: "Spillets progression vil blive nulstillet!",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonText: "Ja, nyt spil!",
+          cancelButtonText: "Nej, forsæt spil!",
+          reverseButtons: true,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            swalWithBootstrapButtons.fire(
+              "Genstarter",
+              "Et nyt spil starter",
+              "success"
+            );
+            timer = setTimeout(() => {
+              location.reload();
+            }, 1500);
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              "Annuleret",
+              "Tidligere spil forsætter",
+              "error"
+            );
+          }
+        });
     }
   }
 }
 StartSpil();
 
-//Arrow Functions
+let short = true;
+document.querySelector(".shortExit").addEventListener("click", function exit() {
+  console.log(short);
+  if (!short) {
+    document.querySelector(".shortcuts").classList.remove("minimize");
+    document.querySelector(".shortExit").classList.remove("fa-arrow-left");
+    document.querySelector(".shortExit").classList.add("fa-circle-xmark");
+    document.querySelector(".shortcuts").style.top = "40%";
+  } else {
+    document.querySelector(".shortcuts").classList.add("minimize");
+    document.querySelector(".shortExit").classList.add("fa-arrow-left");
+    document.querySelector(".shortExit").classList.remove("fa-circle-xmark");
+    document.querySelector(".shortcuts").style.top = "80%";
+  }
+  short = !short;
+});
+
+let ActivityToggle = true;
+document
+  .querySelector(".actiExit")
+  .addEventListener("click", function exitTwo() {
+    console.log(ActivityToggle);
+    if (!ActivityToggle) {
+      document.querySelector(".activity").classList.remove("minimize");
+      document.querySelector(".actiExit").classList.remove("fa-arrow-left");
+      document.querySelector(".actiExit").classList.add("fa-circle-xmark");
+      document.querySelector(".activity").style.top = "2%";
+    } else {
+      document.querySelector(".activity").classList.add("minimize");
+      document.querySelector(".actiExit").classList.add("fa-arrow-left");
+      document.querySelector(".actiExit").classList.remove("fa-circle-xmark");
+      document.querySelector(".activity").style.top = "70%";
+    }
+    ActivityToggle = !ActivityToggle;
+  });
