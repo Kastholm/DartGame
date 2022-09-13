@@ -214,7 +214,7 @@ input[type='checkbox'] {
    .activePlayer .empty input {
         
    }
-   .activity {
+   .activity, .shortcuts {
         height: 15em;
         width: 20em;
         background-color: rgb(247, 236, 174);
@@ -224,10 +224,12 @@ input[type='checkbox'] {
         text-align: center;
         overflow: scroll;
    }
+   .shortcuts {
+        top: 40%;
+   }
    .activity h2 {
         text-align: center;
    }
    .activity p {
         margin: .5em 0;
    }
-

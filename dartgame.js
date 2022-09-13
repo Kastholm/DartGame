@@ -9,7 +9,6 @@ document.querySelector(".add").addEventListener("click", function addPlayer() {
       inputPlaceholder: "Skriv holdets navn",
     });
 
-    
     if (text) {
       const addPlayer = document.createElement("div");
       addPlayer.innerHTML = `<div class="player">
@@ -32,11 +31,13 @@ document.querySelector(".add").addEventListener("click", function addPlayer() {
       const log = document.createElement("p");
       document.querySelector(".activity").appendChild(log);
       log.innerHTML = `<p>'${text}' er blevet føjet til spillet</p>`;
-      document.querySelector(".checkTyve").addEventListener("click", function tyvve() {
-        const log = document.createElement("p");
-      document.querySelector(".activity").appendChild(log);
-        log.innerHTML = `<p>'${text}' fik en 20'er</p>`;
-      });
+      document
+        .querySelector(".checkTyve")
+        .addEventListener("click", function tyvve() {
+          const log = document.createElement("p");
+          document.querySelector(".activity").appendChild(log);
+          log.innerHTML = `<p>'${text}' fik en 20'er</p>`;
+        });
       /*  if(document.querySelectorAll('.tyve')[0].checked & document.querySelectorAll('.tyve')[1].checked && document.querySelectorAll('.tyve')[2].checked){
         document.querySelector('.tyve').style.fontSize = "5rem";
       } */
@@ -185,7 +186,7 @@ let player = 0;
 function StartSpil() {
   let startGame = true;
   let playCount = document.querySelectorAll(".player").length;
-  
+
   document.querySelector(".start").addEventListener("click", function start() {
     console.log(startGame);
     if (startGame === true) {
@@ -248,9 +249,62 @@ function StartSpil() {
         document.querySelectorAll(".player")[player + 1].classList.add('.activePlayer'); */
     }
   });
-
-
+  // KeyPress Functions
+  window.addEventListener("keydown", logKey);
+  function logKey(e) {
+    console.log(e.code);
+    if (e.code === "ArrowRight") {
+      switch (player) {
+        case document.querySelectorAll(".player").length:
+          player--;
+          break;
+        default:
+          player++;
+          document
+            .querySelectorAll(".player")
+            [0 + player].classList.add("activePlayer");
+          document
+            .querySelectorAll(".player")
+            [player - 1].classList.remove("activePlayer");
+      }
+    } else if (e.code === "ArrowLeft") {
+      switch (player) {
+        case 0:
+          player = 0;
+          break;
+        default:
+          player--;
+          document
+            .querySelectorAll(".player")
+            [player].classList.add("activePlayer");
+          document
+            .querySelectorAll(".player")
+            [player + 1].classList.remove("activePlayer");
+      }
+    }
+    else if (e.code === "KeyS") {
+      if (startGame === true) {
+        document.querySelectorAll(".player")[0].classList.add("activePlayer");
+        document.querySelector(".start").innerHTML = "Stop Spil";
+        document.querySelector(".add").style.display = "none";
+        document.querySelector(".remove").style.display = "none";
+        document.querySelector(".next").style.display = "block";
+        document.querySelector(".prev").style.display = "block";
+      } else if (startGame === false) {
+        document.querySelector(".start").innerHTML = "Start Spil";
+        document.querySelectorAll(".player")[0].classList.remove("activePlayer");
+        document.querySelector(".add").style.display = "block";
+        document.querySelector(".remove").style.display = "block";
+        document.querySelector(".next").style.display = "none";
+        document.querySelector(".prev").style.display = "none";
+      }
+      startGame = !startGame;
+    }
+    else if (e.code === "KeyT") {
+      console.log('t')
+    }
+  }
 }
 StartSpil();
 
-
+//Arrow Functions
