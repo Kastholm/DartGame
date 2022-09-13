@@ -53,6 +53,13 @@ button {
      width: 10em;
      color: white;
      background-color: rgb(242, 11, 11);
+     transition: .2s;
+}
+button:hover{
+     transform: scale(1.04);
+     transition: .2s;
+     color: black;
+     background-color: rgb(245, 53, 53);
 }
 .add{
      background-color: green;
@@ -70,8 +77,8 @@ i{
      margin: 0 .5em;
 }
 
-.add:hover{
-     background-color: aqua;
+.add:hover, .start:hover{
+     background-color: rgb(21, 205, 21);
      color: black;
 }
 
@@ -163,10 +170,16 @@ input[type='checkbox'] {
 
  input[type="checkbox"] { /* change "blue" browser chrome to yellow */
      filter: invert(100%) hue-rotate(18deg) brightness(1.7);
+     transition: .2s;
    }
    input[type='checkbox']:checked:after {
      content: '\2713';
      color:white;
+   }
+
+   .check input:hover{
+        transform: scale(1.2);
+        transition: .2s;
    }
 
   /*  input[type='checkbox']{
@@ -184,7 +197,8 @@ input[type='checkbox'] {
 
    .activePlayer {
         transition: .2s;
-     
+     z-index: 99;
+     position: relative;
      transform: scale(1.03);
      box-shadow:
      0 10px 10px hsl(0deg 0% 0% / .275),
@@ -200,3 +214,20 @@ input[type='checkbox'] {
    .activePlayer .empty input {
         
    }
+   .activity {
+        height: 15em;
+        width: 20em;
+        background-color: rgb(247, 236, 174);
+        position: fixed;
+        right: 2%;
+        top: 2%;
+        text-align: center;
+        overflow: scroll;
+   }
+   .activity h2 {
+        text-align: center;
+   }
+   .activity p {
+        margin: .5em 0;
+   }
+

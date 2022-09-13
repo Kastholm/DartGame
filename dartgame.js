@@ -1,9 +1,3 @@
-/* const remPlayer = document.querySelectorAll(".rem");
-remPlayer.forEach((box, index) => {
-  if (index === 0) return;
-  box.style.display = "none";
-}); */
-
 // Tilføj spiller
 document.querySelector(".add").addEventListener("click", function addPlayer() {
   console.log("clicked");
@@ -15,11 +9,12 @@ document.querySelector(".add").addEventListener("click", function addPlayer() {
       inputPlaceholder: "Skriv holdets navn",
     });
 
+    
     if (text) {
       const addPlayer = document.createElement("div");
       addPlayer.innerHTML = `<div class="player">
       <span class="empty"><input value='${text}'></input></span>
-      <span class="check checkOne"><input  class='tyve' type="checkbox"><input class='tyve' type="checkbox"><input class='tyve' type="checkbox"></input></span>
+      <span class="check checkTyve"><input  class='tyve' type="checkbox"><input class='tyve' type="checkbox"><input class='tyve' type="checkbox"></input></span>
       <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
       <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
       <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
@@ -34,6 +29,14 @@ document.querySelector(".add").addEventListener("click", function addPlayer() {
       document.querySelector(".dart-body").appendChild(addPlayer);
       document.querySelector(".start").style.display = "block";
       document.querySelector(".restart").style.marginLeft = ".5em";
+      const log = document.createElement("p");
+      document.querySelector(".activity").appendChild(log);
+      log.innerHTML = `<p>'${text}' er blevet føjet til spillet</p>`;
+      document.querySelector(".checkTyve").addEventListener("click", function tyvve() {
+        const log = document.createElement("p");
+      document.querySelector(".activity").appendChild(log);
+        log.innerHTML = `<p>'${text}' fik en 20'er</p>`;
+      });
       /*  if(document.querySelectorAll('.tyve')[0].checked & document.querySelectorAll('.tyve')[1].checked && document.querySelectorAll('.tyve')[2].checked){
         document.querySelector('.tyve').style.fontSize = "5rem";
       } */
@@ -177,14 +180,16 @@ players.forEach((box, index) => {
   });
 } */
 
+// Start DartGame
 let player = 0;
 function StartSpil() {
   let startGame = true;
   let playCount = document.querySelectorAll(".player").length;
+  
   document.querySelector(".start").addEventListener("click", function start() {
     console.log(startGame);
     if (startGame === true) {
-      document.querySelectorAll(".player")[0].classList.add('activePlayer');
+      document.querySelectorAll(".player")[0].classList.add("activePlayer");
       document.querySelector(".start").innerHTML = "Stop Spil";
       document.querySelector(".add").style.display = "none";
       document.querySelector(".remove").style.display = "none";
@@ -192,7 +197,7 @@ function StartSpil() {
       document.querySelector(".prev").style.display = "block";
     } else if (startGame === false) {
       document.querySelector(".start").innerHTML = "Start Spil";
-      document.querySelectorAll(".player")[0].classList.remove('activePlayer');
+      document.querySelectorAll(".player")[0].classList.remove("activePlayer");
       document.querySelector(".add").style.display = "block";
       document.querySelector(".remove").style.display = "block";
       document.querySelector(".next").style.display = "none";
@@ -212,12 +217,16 @@ function StartSpil() {
         break;
       default:
         player++;
-          document.querySelectorAll(".player")[0 + player].classList.add('activePlayer');
-          document.querySelectorAll(".player")[player - 1].classList.remove('activePlayer');
+        document
+          .querySelectorAll(".player")
+          [0 + player].classList.add("activePlayer");
+        document
+          .querySelectorAll(".player")
+          [player - 1].classList.remove("activePlayer");
     }
   });
 
-// Forrige Spiller
+  // Forrige Spiller
   document.querySelector(".prev").addEventListener("click", function prev() {
     console.log(player);
     console.log(document.querySelectorAll(".player").length);
@@ -228,12 +237,20 @@ function StartSpil() {
         break;
       default:
         player--;
-          document.querySelectorAll(".player")[player].classList.add('activePlayer');
-          document.querySelectorAll(".player")[player + 1].classList.remove('activePlayer');
+        document
+          .querySelectorAll(".player")
+          [player].classList.add("activePlayer");
+        document
+          .querySelectorAll(".player")
+          [player + 1].classList.remove("activePlayer");
 
       /*     document.querySelectorAll(".player")[player].classList.add('.activePlayer');
         document.querySelectorAll(".player")[player + 1].classList.add('.activePlayer'); */
     }
   });
+
+
 }
 StartSpil();
+
+
