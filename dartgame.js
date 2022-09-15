@@ -1,3 +1,34 @@
+//Player Index
+function callPlayer(text) {
+  return `<div class="player">
+<span class="empty"><input value='${text}'/><i class="fa-regular fa-xmark trashPlayer"></i></span>
+
+<span class="check field" onclick='triplechecked()' ><input class='checked' type="checkbox"><input class='checked' type="checkbox"/><input class='checked' type="checkbox"/></span>
+
+<span class="check fieldNitten" onclick='tripleNitten()'><input class='nitten' type="checkbox"/><input class='nitten' type="checkbox"/><input class='nitten' type="checkbox"/></span>
+
+<span class="check fieldatten" onclick='tripleatten()' ><input class='atten' type="checkbox"/><input class='atten' type="checkbox"/><input class='atten' type="checkbox"/></span>
+
+<span class="check fieldsytten" onclick='triplesytten()'><input class='sytten' type="checkbox"/><input class='sytten' type="checkbox"/><input class='sytten' type="checkbox"/></span>
+
+<span class="check fieldseksten" onclick='tripleseksten()'><input class='seksten' type="checkbox" /><input class='seksten' type="checkbox" /><input class='seksten' type="checkbox" /></span>
+
+<span class="check fieldfemten" onclick='triplefemten()'><input type="checkbox" class='femten' /><input type="checkbox" class='femten' /><input type="checkbox" class='femten' /></span>
+
+<span class="check  fieldfjorten" onclick='triplefjorten()'><input class='fjorten' type="checkbox"/><input class='fjorten' type="checkbox"/><input class='fjorten' type="checkbox"/></span>
+
+<span class="check fieldtretten" onclick='tripletretten()'><input type="checkbox" class='tretten'/><input type="checkbox" class='tretten'/><input type="checkbox" class='tretten'/></span>
+
+<span class="check fieldtripple" onclick='tripletripple()'><input class='tripple' type="checkbox"/><input class='tripple' type="checkbox"/><input type="checkbox" class='tripple'/></span>
+
+<span class="check fielddouble" onclick='tripledouble()'><input class='double' type="checkbox"/><input class='double' type="checkbox"/><input class='double' type="checkbox"/></span>
+
+<span class="check fieldbull" onclick='triplebull()'><input class='bull' type="checkbox"><input class='bull' type="checkbox"><input type="checkbox" class='bull'></span>
+</div>`;
+}
+
+//// Dart Spil begynder ////
+
 // Tilføj spiller
 document.querySelector(".add").addEventListener("click", function addPlayer() {
   console.log("clicked");
@@ -11,36 +42,10 @@ document.querySelector(".add").addEventListener("click", function addPlayer() {
 
     if (text) {
       const addPlayer = document.createElement("div");
-      addPlayer.innerHTML = `<div class="player">
-      <span class="empty"><input value='${text}'></input></span>
-      <span class="check checkTyve"><input  class='tyve' type="checkbox"><input class='tyve' type="checkbox"><input class='tyve' type="checkbox"></input></span>
-      <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-      <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-      <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-      <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-      <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-      <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-      <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-      <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-      <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-      <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-      </div>`;
+      addPlayer.innerHTML = callPlayer(text);
       document.querySelector(".dart-body").appendChild(addPlayer);
       document.querySelector(".start").style.display = "block";
       document.querySelector(".restart").style.marginLeft = ".5em";
-      const log = document.createElement("p");
-      document.querySelector(".activity").appendChild(log);
-      log.innerHTML = `<p>'${text}' er blevet føjet til spillet</p>`;
-      document
-        .querySelector(".checkTyve")
-        .addEventListener("click", function tyvve() {
-          const log = document.createElement("p");
-          document.querySelector(".activity").appendChild(log);
-          log.innerHTML = `<p>'${text}' fik en 20'er</p>`;
-        });
-      /*  if(document.querySelectorAll('.tyve')[0].checked & document.querySelectorAll('.tyve')[1].checked && document.querySelectorAll('.tyve')[2].checked){
-        document.querySelector('.tyve').style.fontSize = "5rem";
-      } */
     }
   })();
 });
@@ -312,36 +317,10 @@ function StartSpil() {
 
         if (text) {
           const addPlayer = document.createElement("div");
-          addPlayer.innerHTML = `<div class="player">
-          <span class="empty"><input value='${text}'></input></span>
-          <span class="check checkTyve"><input  class='tyve' type="checkbox"><input class='tyve' type="checkbox"><input class='tyve' type="checkbox"></input></span>
-          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-          <span class="check"><input type="checkbox"><input type="checkbox"><input type="checkbox"></input></span>
-          </div>`;
+          addPlayer.innerHTML = callPlayer(text);
           document.querySelector(".dart-body").appendChild(addPlayer);
           document.querySelector(".start").style.display = "block";
           document.querySelector(".restart").style.marginLeft = ".5em";
-          const log = document.createElement("p");
-          document.querySelector(".activity").appendChild(log);
-          log.innerHTML = `<p>'${text}' er blevet føjet til spillet</p>`;
-          document
-            .querySelector(".checkTyve")
-            .addEventListener("click", function tyvve() {
-              const log = document.createElement("p");
-              document.querySelector(".activity").appendChild(log);
-              log.innerHTML = `<p>'${text}' fik en 20'er</p>`;
-            });
-          /*  if(document.querySelectorAll('.tyve')[0].checked & document.querySelectorAll('.tyve')[1].checked && document.querySelectorAll('.tyve')[2].checked){
-            document.querySelector('.tyve').style.fontSize = "5rem";
-          } */
         }
       })();
     } else if (e.code === "KeyF") {
@@ -462,3 +441,121 @@ document
     }
     ActivityToggle = !ActivityToggle;
   });
+
+function celebrate() {
+  const jsConfetti = new JSConfetti();
+  jsConfetti.addConfetti();
+
+  //Confetti
+  //Colors
+  jsConfetti.addConfetti({
+    emojis: ["🎯", "🎯", "🎯", "🎯", "🎯", "🎯"],
+    emojiSize: 100,
+    confettiNumber: 20,
+  });
+}
+
+function fullRow(checked, field) {
+  if (checked[0].checked && checked[1].checked && checked[2].checked) {
+    field[0].classList.add("scored");
+  } else {
+    field[0].classList.remove("scored");
+  }
+
+  if (checked[3].checked && checked[4].checked && checked[5].checked) {
+    field[1].classList.add("scored");
+  } else {
+    field[1].classList.remove("scored");
+  }
+
+  if (checked[6].checked && checked[7].checked && checked[8].checked) {
+    field[2].classList.add("scored");
+  } else {
+    field[2].classList.remove("scored");
+  }
+
+  if (checked[9].checked && checked[10].checked && checked[11].checked) {
+    field[3].classList.add("scored");
+  } else {
+    field[3].classList.remove("scored");
+  }
+
+  if (checked[12].checked && checked[13].checked && checked[14].checked) {
+    field[4].classList.add("scored");
+  } else {
+    field[4].classList.remove("scored");
+  }
+
+  if (checked[15].checked && checked[16].checked && checked[17].checked) {
+    field[5].classList.add("scored");
+  } else {
+    field[5].classList.remove("scored");
+  }
+}
+
+function triplechecked() {
+  const field = document.querySelectorAll(".field");
+  const checked = document.querySelectorAll(".checked");
+  fullRow(checked, field);
+}
+
+function tripleNitten() {
+  const fieldnitten = document.querySelectorAll(".fieldNitten");
+  const nitten = document.querySelectorAll(".nitten");
+  console.log(this.value);
+  fullRow(nitten, fieldnitten);
+}
+
+function tripleatten() {
+  const fieldatten = document.querySelectorAll(".fieldatten");
+  const atten = document.querySelectorAll(".atten");
+  fullRow(atten, fieldatten);
+}
+
+function triplesytten() {
+  const fieldsytten = document.querySelectorAll(".fieldsytten");
+  const sytten = document.querySelectorAll(".sytten");
+  fullRow(sytten, fieldsytten);
+}
+
+function tripleseksten() {
+  const fieldseksten = document.querySelectorAll(".fieldseksten");
+  const seksten = document.querySelectorAll(".seksten");
+  fullRow(seksten, fieldseksten);
+}
+
+function triplefemten() {
+  const fieldfemten = document.querySelectorAll(".fieldfemten");
+  const femten = document.querySelectorAll(".femten");
+  fullRow(femten, fieldfemten);
+}
+
+function triplefjorten() {
+  const fieldfjorten = document.querySelectorAll(".fieldfjorten");
+  const fjorten = document.querySelectorAll(".fjorten");
+  fullRow(fjorten, fieldfjorten);
+}
+
+function tripletretten() {
+  const fieldtretten = document.querySelectorAll(".fieldtretten");
+  const tretten = document.querySelectorAll(".tretten");
+  fullRow(tretten, fieldtretten);
+}
+
+function tripledouble() {
+  const fielddouble = document.querySelectorAll(".fielddouble");
+  const double = document.querySelectorAll(".double");
+  fullRow(double, fielddouble);
+}
+
+function tripletripple() {
+  const fieldtripple = document.querySelectorAll(".fieldtripple");
+  const tripple = document.querySelectorAll(".tripple");
+  fullRow(tripple, fieldtripple);
+}
+
+function triplebull() {
+  const fieldbull = document.querySelectorAll(".fieldbull");
+  const bull = document.querySelectorAll(".bull");
+  fullRow(bull, fieldbull);
+}

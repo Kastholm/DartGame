@@ -269,3 +269,16 @@ input[type='checkbox'] {
         opacity: 0;
    }
    */
+.scored{
+     position: relative;
+     background-color: rgb(29, 221, 42) !important;
+}
+   .scored::after {
+        content: '__';
+       height: 2rem;
+       font-size: 10rem;
+        position: absolute;
+        top: -230%;
+        left: 13%;
+        pointer-events: none
+   }
