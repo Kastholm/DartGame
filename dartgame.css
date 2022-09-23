@@ -1,18 +1,22 @@
 body{
-     background-image: url('img/dart-skive.jpg');
+     background-image: url('img/background.jpg');
      background-size: cover;
     max-height: 100vh;
-    font-family: montserrat, sans-serif;
-
-font-weight: 300;
-
+   /*  overflow: hidden; */
+    margin: 0;
+    font-family: mono45-headline, monospace;
+font-weight: 700;
 font-style: normal;
+overflow: hidden;
 }
 .dart-body {
      display: flex;
      padding: 0em;
+     color: #fbfbfb;
+     height: 100vh;
 }
 .dart-body div{
+     margin: auto 0;
      display: grid;
      text-align: center;
 }
@@ -22,73 +26,149 @@ font-style: normal;
      width: fit-content;
      min-width: 4em;
      min-height: 1em;
-     max-height: 1em;
+     
 }
 .check{
      padding: .5em 0;
      min-width: 13.7em !important;
+     
 }
  
 .number span:nth-child(even){
-     background-color: #eb8084;
+     background-color: #992b2e;
+     font-family: mono45-headline, monospace;
+font-weight: 700;
+font-style: normal;
+font-size: 2.2rem;
+padding: 0.25em 0;
+min-width: 2em;
 }
 .number span:nth-child(odd){
-     background-color: #4ed494;
+     background-color: #1aa864;
+     font-family: mono45-headline, monospace;
+font-weight: 700;
+font-style: normal;
+font-size: 2.2rem;
+padding: 0.25em 0;
+min-width: 2em;
 }
 
 .player span:nth-child(even){
-     background-color: #eb8084;
+     background-color: #992b2e;
 }
 .player span:nth-child(odd){
-     background-color: #4ed494;
+     background-color: #1aa864;
 }
 .empty {
-     background-color: #F9DFBC !important;
+     background-color: #252424 !important;
 }
 
+
+
+/* 5 */
 button {
-     margin: .5em .5em 0 0;
-     padding: 1.1em;
+     width: 11em;
+     height: 3.5em;
+     font-family: mono45-headline, monospace;
+     font-weight: 700;
+     font-style: normal;
+     font-size: 1.2rem;
+     line-height: 42px;
+     margin: .1em auto;
+     padding: 0;
+     border: none;
+     position: relative;
+     transition: .5s;
+     background: rgb(175, 79, 69);
+   background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
+   }
+   button:hover {
+     color: #f0094a;
+     background: transparent;
+      box-shadow:none;
+      transform: scale(1.04);
+      transition: .5s;
+      cursor: pointer;
+   }
+   button:before,
+   button:after{
+     content:'';
+     position:absolute;
+     top:0;
+     right:0;
+     height:2px;
+     width:0;
+     background: #f0094a;
+     box-shadow:
+      -1px -1px 5px 0px #fff,
+      7px 7px 20px 0px #0003,
+      4px 4px 5px 0px #0002;
+     transition:400ms ease all;
+   }
+   button:after{
+     right:inherit;
+     top:inherit;
+     left:0;
+     bottom:0;
+     transition: .5s;
+   }
+   button:hover:before,
+   button:hover:after{
+     width:100%;
+     transition:800ms ease all;
+   }
+   
+
+   /* font-family: mono45-headline, monospace; */
+/* button {
+     margin: 0 auto;
+     padding: .6em;
+     height: 3em;
      font-size: 1.3rem;
      width: 10em;
      color: white;
      background-color: rgb(242, 11, 11);
      transition: .2s;
+     font-family: mono45-headline, monospace;
+font-weight: 700;
+font-style: normal;
 }
 button:hover{
      transform: scale(1.04);
      transition: .2s;
      color: black;
      background-color: rgb(245, 53, 53);
-}
+} */
 .add{
      background-color: green;
 }
 
 .restart {
      background-color: #ff0008;
-     margin-left: auto;
 }
-.start{
-     margin-left: auto;
-     background-color: GREEN;
+.start, .add, .next{
+     transition: .5s;
+     background: rgb(101, 175, 69);
+   background: linear-gradient(0deg, rgb(79, 195, 43) 0%, rgb(2, 251, 60) 100%);
 }
 i{
      margin: 0 .5em;
 }
 
-.add:hover, .start:hover{
-     background-color: rgb(21, 205, 21);
-     color: black;
+.add:hover, .start:hover, .next:hover{
+     background-color: rgb(25, 139, 25);
+     color: #FBFBFB;
 }
-
-
 
 .check{
      width: 13.7em;
      padding: 1.15em 0;
+     max-height: 1em;
 }
-.count, .empty{
+.count {
+     max-height: 1em;
+}
+.count, .numb{
      padding: .5em 0;
      font-size: 1.6rem;
      border: 2px solid black;
@@ -114,6 +194,7 @@ input {
      margin: 0 0.8em;
      cursor: pointer;
      font-size: 1.3rem;
+     font-family: mono45-headline, monospace;
 }
 input[type='checkbox'] {
      content: '';
@@ -121,6 +202,7 @@ input[type='checkbox'] {
      height: 28px;    
      accent-color: rgb(16, 66, 229);
 }
+
 
 /* .rounded{
      width: 100px;
@@ -136,7 +218,7 @@ input[type='checkbox'] {
      width: 70px;
      height: 50px;
      margin-top: -2.7em;
-     z-index: 99;
+     z-index: 999;
      position: relative;
      margin-left: -.2em;
      background-image: url('https://purepng.com/public/uploads/large/purepng.com-dartdartsdartthrowing-sportsmall-missilescircular-dartboard-1701528135276x1pry.png');
@@ -236,6 +318,7 @@ input[type='checkbox'] {
         color: red;
         padding: 1em .2em;
         z-index: 2;
+        cursor: pointer;
    }
    .activity h2, .shortcuts h2 {
         text-align: center;
@@ -243,6 +326,19 @@ input[type='checkbox'] {
    }
    .activity p {
         margin: .5em 0;
+   }
+   .fa-magnifying-glass-plus, .fa-magnifying-glass-minus{
+     position: absolute;
+     left: -5%;
+     top: -10%;
+     cursor: pointer;
+     font-size: 2rem;
+     color: rgb(14, 93, 48);
+     padding: 1em .2em;
+     z-index: 2;
+   }
+   .fa-magnifying-glass-minus {
+        color: red;
    }
 .minimize h2{
      opacity: 0;
@@ -254,6 +350,14 @@ input[type='checkbox'] {
         overflow: hidden;
         right: 0%;
         transition: .5s;
+   }
+   .maximize{
+        transition: .2s;
+        height: 100vh;
+        z-index: 6;
+   }
+   .maximize i {
+        top: -1%;
    }
    .minimize .actiExit {
      right: -30% !important;
@@ -282,3 +386,67 @@ input[type='checkbox'] {
         left: 13%;
         pointer-events: none
    }
+
+   b{
+       
+        font-size: 2.2rem;
+     color: #36bd21;
+     font-weight: 800 !important;
+   }
+
+   header{
+        height: 2em;
+        background-color: red;
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(max(25%, 10rem), 1fr)); grid-auto-flow: column;
+        place-content: center;
+        text-align: center;
+   }
+
+
+
+
+   .playerName{
+     width: 7.7em;
+     height: 2em;
+     position: relative;
+     background-color: #fbfbfb;
+    text-align: center;
+    margin: 0;
+    cursor: pointer;
+    font-size: 1.7rem;
+}
+
+.rightPanel{
+     /* margin-left: auto; */
+     position: absolute;
+     right: 0;
+     top: 0;
+     bottom: 0;
+     text-align: center;
+     background-color: rgba(56, 55, 55, 0.571);
+     color: #fbfbfb;
+     width: 15em;
+}
+.rightPanelBody{
+     position: relative;
+     right: 0;
+     top: 0;
+     bottom: 0;
+     height: 100vh;
+     
+}
+.gameInfo{
+  padding: 2em 0;
+}
+.gameInfo h2 {
+     margin: 0;
+}
+.highlight{
+     color: yellow;
+}
+.button {
+     position: absolute;
+   bottom: 2%;
+    display: grid;
+    place-content: center;
+}
