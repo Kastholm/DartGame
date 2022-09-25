@@ -9,7 +9,7 @@ const addBut = document.querySelector(".add");
 const remBut = document.querySelector(".remove");
 const nextBut = document.querySelector(".next");
 const prevBut = document.querySelector(".prev");
-const infoBut = document.querySelector('.info');
+const infoBut = document.querySelector(".info");
 
 // Game Index & Values
 const values = {
@@ -261,8 +261,7 @@ let f = -2;
 function boxCheck(boxes, b, f, r) {
   if (boxes[b].checked && boxes[b + 1].checked && boxes[b + 2].checked) {
     values.checkField()[r].classList.add("scored");
-  }
-  else{
+  } else {
     values.checkField()[r].classList.remove("scored");
   }
 }
@@ -292,14 +291,19 @@ function fullPlate(boxes, v, g, player) {
   for (i = g; i < v; i++) {}
   if (boxes[i].checked) {
     Swal.fire(
-      `<img src='/img/trophy.gif'><p class='winRespond'><b>Tillykke</b><b> ${values.playerNames()[player].value}!</b><br><br> Du blev færdig på <br><br> ${values.round} Runder</p>`, "", '');
+      `<img src='img/trophy.gif'><p class='winRespond'><b>Tillykke</b><b> ${
+        values.playerNames()[player].value
+      }!</b><br><br> Du blev færdig på <br><br> ${values.round} Runder</p>`,
+      "",
+      ""
+    );
     celebrate();
     setTimeout(() => {
       celebrate();
-    }, "1000")
+    }, "1000");
     setTimeout(() => {
       celebrate();
-    }, "2000")
+    }, "2000");
   }
 }
 //Fuld Spiller plader
@@ -336,8 +340,6 @@ function fullPlateFour() {
   fullPlate(boxes, v, g, player);
 }
 
-
-
 // Confetti Celebration
 function celebrate() {
   const jsConfetti = new JSConfetti();
@@ -354,13 +356,22 @@ function celebrate() {
 
 //Spil Information boks
 //Åbne
-infoBut.addEventListener('click', () => { 
-  console.log('hej')
-  document.querySelector('.information').classList.add('ani')
-  document.querySelector('.information').classList.remove('aniOut') 
- } )
- //Lukke
- document.querySelector('.shortExit').addEventListener('click', () => { 
-  document.querySelector('.information').classList.remove('ani') 
-  document.querySelector('.information').classList.add('aniOut') 
-  } )
+infoBut.addEventListener("click", () => {
+  console.log("hej");
+  document.querySelector(".information").classList.add("ani");
+  document.querySelector(".information").classList.remove("aniOut");
+});
+//Lukke
+document.querySelector(".shortExit").addEventListener("click", () => {
+  document.querySelector(".information").classList.remove("ani");
+  document.querySelector(".information").classList.add("aniOut");
+});
+
+function ga() {
+  let saveRounds = (document.cookie = values.round);
+  localStorage.setItem(saveRounds);
+  JSON.stringify(values.round);
+}
+let storage = localStorage.getItem("hobby");
+
+console.log(storage);
