@@ -9,6 +9,7 @@ const addBut = document.querySelector(".add");
 const remBut = document.querySelector(".remove");
 const nextBut = document.querySelector(".next");
 const prevBut = document.querySelector(".prev");
+const infoBut = document.querySelector('.info');
 
 // Game Index & Values
 const values = {
@@ -167,7 +168,7 @@ startBut.addEventListener("click", () => {
   if (!startGame) {
     Swal.fire(
       `Spillet er startet, <br> <b>${
-        values.playerNames()[0].value
+        values.playerNames()[p].value
       }</b> starter`,
       "",
       "info"
@@ -177,6 +178,7 @@ startBut.addEventListener("click", () => {
     ).innerHTML = `Nuværende spiller: <br><b>${
       values.playerNames()[values.player].value
     }</b></b>`;
+    checkClick();
     style(".add", "none");
     style(".remove", "none");
     style(".next", "block");
@@ -187,7 +189,6 @@ startBut.addEventListener("click", () => {
     }
   } else {
     Swal.fire(`Spillet er pauset`, "", "info");
-    values.players()[0].classList.remove("activePlayer");
     style(".add", "block");
     style(".remove", "block");
     style(".next", "none");
@@ -241,7 +242,7 @@ document.querySelector(".restart").addEventListener("click", () => {
 });
 
 // Dart mus
-/* const cursorRounded = document.querySelector(".rounded");
+const cursorRounded = document.querySelector(".rounded");
 const cursorPointed = document.querySelector(".pointed");
 
 const moveCursor = (e) => {
@@ -254,37 +255,90 @@ const moveCursor = (e) => {
 };
 
 window.addEventListener("mousemove", moveCursor);
- */
 
-console.log(values.checkBoxes());
-console.log(values.checkBoxes().length);
-
-//Hvis alle 3 er checked, udskriv værdi
-//indel fields for sig med 3 bokse
-
-function boxCheck(boxes, b, f) {
+//Fuld Række Function
+let f = -2;
+function boxCheck(boxes, b, f, r) {
   if (boxes[b].checked && boxes[b + 1].checked && boxes[b + 2].checked) {
-    /* values.checkField()[f].classList.add("scored"); */
+    values.checkField()[r].classList.add("scored");
+  }
+  else{
+    values.checkField()[r].classList.remove("scored");
   }
 }
-
+//Fuld Række For loop
 function fullRow() {
   for (i = 0; i < values.checkBoxes().length + 3; i += 3) {
-    console.log(i);
     b = i;
-    console.log(b);
+    f++;
+    f++;
+    r = b - f;
     let boxes = document.querySelectorAll(".check input");
-    boxCheck(boxes, b);
-    /* if (boxes[b].checked && boxes[b + 1].checked && boxes[b + 2].checked) {
-      f++;
-      if(b > 3){
-        values.checkField()[f].classList.add("scored");
-      }
-      console.log(`wuuh`);
-    } */
+    boxCheck(boxes, b, f, r);
   }
 }
+//Reset f, så Fuld Række kan indlæses igen.
+function checkClick() {
+  for (i = 0; i < values.checkBoxes().length; i++)
+    values.checkBoxes()[i].addEventListener("click", function res() {
+      f = -2;
+      fullRow();
+    });
+}
 
+//Fuld Spiller plade Func
+//Fortælling om hvor mange runder etc. person brugte.
+function fullPlate(boxes, v, g, player) {
+  for (i = g; i < v; i++) {}
+  if (boxes[i].checked) {
+    Swal.fire(
+      `<img src='/img/trophy.gif'><p class='winRespond'><b>Tillykke</b><b> ${values.playerNames()[player].value}!</b><br><br> Du blev færdig på <br><br> ${values.round} Runder</p>`, "", '');
+    celebrate();
+    setTimeout(() => {
+      celebrate();
+    }, "1000")
+    setTimeout(() => {
+      celebrate();
+    }, "2000")
+  }
+}
+//Fuld Spiller plader
+//Spiler 1
+function fullPlateOne() {
+  let boxes = document.querySelectorAll(".check input");
+  v = 32;
+  g = 0;
+  let player = 0;
+  fullPlate(boxes, v, g, player);
+}
+//Spiller 2
+function fullPlateTwo() {
+  let boxes = document.querySelectorAll(".check input");
+  v = 65;
+  g = 32;
+  let player = 1;
+  fullPlate(boxes, v, g, player);
+}
+//Spiller 3
+function fullPlateThree() {
+  let boxes = document.querySelectorAll(".check input");
+  v = 98;
+  g = 65;
+  let player = 2;
+  fullPlate(boxes, v, g, player);
+}
+//Spiller 4
+function fullPlateFour() {
+  let boxes = document.querySelectorAll(".check input");
+  v = 131;
+  g = 98;
+  let player = 3;
+  fullPlate(boxes, v, g, player);
+}
+
+
+
+// Confetti Celebration
 function celebrate() {
   const jsConfetti = new JSConfetti();
   jsConfetti.addConfetti();
@@ -297,3 +351,16 @@ function celebrate() {
     confettiNumber: 20,
   });
 }
+
+//Spil Information boks
+//Åbne
+infoBut.addEventListener('click', () => { 
+  console.log('hej')
+  document.querySelector('.information').classList.add('ani')
+  document.querySelector('.information').classList.remove('aniOut') 
+ } )
+ //Lukke
+ document.querySelector('.shortExit').addEventListener('click', () => { 
+  document.querySelector('.information').classList.remove('ani') 
+  document.querySelector('.information').classList.add('aniOut') 
+  } )

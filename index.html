@@ -12,20 +12,20 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     />
     <link rel="stylesheet" href="https://use.typekit.net/fjz0fyq.css" />
-    <link rel="stylesheet" href="https://use.typekit.net/ctn4skt.css">
+    <link rel="stylesheet" href="https://use.typekit.net/ctn4skt.css" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
   </head>
   <body id="ola">
-<!-- <header>
+    <!-- <header>
   <li>Nuværende Spiller :</li>
   <li>Runde :</li>
   <li>h</li>
 </header> -->
 
-   <!--  <div class="cursor rounded"></div>
-    <div class="cursor pointed"></div> -->
-    
+    <div class="cursor rounded"></div>
+    <div class="cursor pointed"></div>
+
     <div class="dart-body">
       <div class="number">
         <span class="empty numb">Tal</span>
@@ -47,57 +47,72 @@
       <div class="rightPanelBody">
         <div class="gameInfo">
           <h2 class="currentPlayer"></h2>
-          <br>
-          <h2 class="round"> </h2>
+          <br />
+          <h2 class="round"></h2>
         </div>
-           <div class="buttons">
-            <button>Test</button>
-             <button>Test</button>
-             <h3>__________________________</h3>
-             <button style="display: none" class="next">
-               Næste Spiller<!-- <i class="fa-solid fa-user-plus"></i> -->
-             </button>
-             <button style="display: none" class="prev">
-               Forrige Spiller<!-- <i class="fa-solid fa-user-plus"></i> -->
-             </button>
-             <div class="playerIndex">
-               <button class="add">
-                 Tilføj Spiller<i class="fa-solid fa-user-plus"></i>
-               </button>
-               <button class="remove">
-                 Fjern Spiller<i class="fa-solid fa-user-minus"></i>
-               </button>
-             </div>
-             <h3>__________________________</h3>
-             <div class="gameProgress">
-               <button style="display: none" class="start">
-                 Start Spil<i class="fa-solid fa-arrows-rotate"></i>
-               </button>
-               <button class="restart">
-                 Genstart Spil<i class="fa-solid fa-arrows-rotate"></i>
-               </button>
-           </div>
-           </div>
+        <div class="buttons">
+          <button>Historik</button>
+          <button class="info">Spil Info</button>
+          <h3>__________________________</h3>
+          <button style="display: none" class="next">
+            Næste Spiller<!-- <i class="fa-solid fa-user-plus"></i> -->
+          </button>
+          <button style="display: none" class="prev">
+            Forrige Spiller<!-- <i class="fa-solid fa-user-plus"></i> -->
+          </button>
+          <div class="playerIndex">
+            <button class="add">
+              Tilføj Spiller<i class="fa-solid fa-user-plus"></i>
+            </button>
+            <button class="remove">
+              Fjern Spiller<i class="fa-solid fa-user-minus"></i>
+            </button>
+          </div>
+          <h3>__________________________</h3>
+          <div class="gameProgress">
+            <button style="display: none" class="start">
+              Start Spil<i class="fa-solid fa-arrows-rotate"></i>
+            </button>
+            <button class="restart">
+              Genstart Spil<i class="fa-solid fa-arrows-rotate"></i>
+            </button>
+          </div>
+        </div>
       </div>
-       
-
-     </div>
-   <!--  <div class="activity">
-      <i class="zoom fa-solid fa-magnifying-glass-plus"></i>
-      <i class="fa-solid fa-circle-xmark actiExit"></i>
-      <h2>Aktivitets Log</h2>
     </div>
-    <div class="shortcuts">
-      <h2>Genvejs taster</h2>
-      <i class="fa-solid fa-circle-xmark shortExit"></i>
-      <p><i class="fa-solid fa-t"></i> = Tilføj spiller</p>
-      <p><i class="fa-solid fa-f"></i> = Fjern spiller</p>
-      <p><i class="fa-solid fa-s"></i> = Start spil</p>
-      <p><i class="fa-solid fa-arrow-right-long"></i>Næste spiller</p> 
-      <p><i class="fa-solid fa-arrow-left-long"></i>Forrige Spiller</p>
-    </div> -->
-    
-    
+    <div class="information">
+      <h1>Velkommen til <b>DartGame</b></h1>
+      <h2>
+        <b>Ram x3</b> af hver felt på din spillerplade for at hive sejren
+        hjem.<br />
+        En tripple / double kan benyttes som <b>x1 point</b> i tripple / double
+        rækken,<br />
+        men også anvendes til at sætte <b>x3 / x2 krydser</b> i det ramte tal.
+        <br />
+        Hvis Bull rammes i rødt felt, tæller det for <b>x2</b> Bulls, hvis grønt
+        tæller det for <b>x1</b>.
+      </h2>
+      <div class="informationBody">
+        <div class="shortcut">
+          <h3><b>Genvejs taster</b></h3>
+          <i class="fa-solid fa-circle-xmark shortExit"></i>
+          <h4><i class="fa-solid fa-t"></i> = Tilføj spiller</h4>
+          <h4><i class="fa-solid fa-f"></i> = Fjern spiller</h4>
+          <h4><i class="fa-solid fa-s"></i> = Start spil</h4>
+          <h4><i class="fa-solid fa-arrow-right-long"></i> = Næste spiller</h4>
+          <h4><i class="fa-solid fa-arrow-left-long"></i> = Forrige Spiller</h4>
+        </div>
+        <div class="shortcut">
+          <h3><b>Knapper</b></h3>
+          <h4>* Tilføj spiller (Tilføjer ny spiller)</h4>
+          <h4>* Fjern spiller (Fjerner sidst tilføjede spiller)</h4>
+          <h4>
+            Start spil (Starter Spillet - hvis der findes gældende spillere)
+          </h4>
+          <h4>Næste spiller (Skifter til næste spiller i rækken)</h4>
+          <h4>Forrige Spiller (Skifter til forrige spiller i rækken)</h4>
+        </div>
+      </div>
+    </div>
   </body>
-  </html>
-  
+</html>
