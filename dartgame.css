@@ -22,18 +22,18 @@ overflow: hidden;
      text-align: center;
 }
 .dart-body span, .player span {
-     
      border: 2px solid black;
      width: fit-content;
      min-width: 4em;
      min-height: 1em;
      
 }
+
 .check{
      padding: .5em 0;
      min-width: 13.7em !important;
-     
 }
+
  
 .number span:nth-child(even){
      background-color: #992b2e;

@@ -73,6 +73,7 @@ addBut.addEventListener("click", () => {
       player.name = text;
       player.callPlayer();
       playerExist();
+      saveGame();
       return;
     }
     Swal.fire(`En spiller kr;ver et navn`, "", "info");
@@ -83,6 +84,7 @@ addBut.addEventListener("click", () => {
 remBut.addEventListener("click", () => {
   let i = values.players().length;
   let name = values.playerNames();
+
   if (i >= 1) {
     Swal.fire({
       title: `Vil du slette spiller 
@@ -94,9 +96,11 @@ remBut.addEventListener("click", () => {
       if (result.isConfirmed) {
         values.players()[-1 + i].remove();
         playerExist();
+        saveGame();
         return;
       }
       Swal.fire(`<b>${name[-1 + i].value}</b> blev ikke slettet`, "", "info");
+      saveGame();
     });
   }
 });
@@ -113,6 +117,7 @@ nextBut.addEventListener("click", () => {
     document.querySelector(
       ".round"
     ).innerHTML = `Runde: <br><b>${values.round}</b>`;
+    saveGame();
   }
   values.player++;
   document.querySelector(
@@ -128,11 +133,13 @@ nextBut.addEventListener("click", () => {
     timer: 1000,
   });
   values.players()[p].classList.add("activePlayer");
+  saveGame();
 });
 //Forrige Spiller
 prevBut.addEventListener("click", () => {
   if (p === 0) {
     p = 0;
+    saveGame();
     return;
   }
   p--;
@@ -151,6 +158,7 @@ prevBut.addEventListener("click", () => {
   });
   values.players()[p].classList.add("activePlayer");
   values.players()[p + 1].classList.remove("activePlayer");
+  saveGame();
 });
 
 // Hvis Spiller findes, lav Startknappen
@@ -164,8 +172,12 @@ function playerExist() {
 // Start DartGame
 let startGame = false;
 let gameGoing = 0;
+let startCheck = 0;
+saveGame();
 startBut.addEventListener("click", () => {
+  
   if (!startGame) {
+    startCheck++;
     Swal.fire(
       `Spillet er startet, <br> <b>${
         values.playerNames()[p].value
@@ -189,6 +201,7 @@ startBut.addEventListener("click", () => {
     }
   } else {
     Swal.fire(`Spillet er pauset`, "", "info");
+    startCheck = 0;
     style(".add", "block");
     style(".remove", "block");
     style(".next", "none");
@@ -197,6 +210,14 @@ startBut.addEventListener("click", () => {
     startBut.innerHTML = "Forsæt spil";
   }
   startGame = !startGame;
+  //Tjekker om spillet er startet og aktiverer bokse.
+  for (i = 0; i < values.checkBoxes().length; i++) {
+    if (startCheck === 1) {
+      values.checkBoxes()[i].style.pointerEvents = "visible";
+    } else if (startCheck === 0) {
+      values.checkBoxes()[i].style.pointerEvents = "none";
+    }
+  }
   console.log(startGame);
 });
 
@@ -226,6 +247,7 @@ document.querySelector(".restart").addEventListener("click", () => {
           "Et nyt spil starter",
           "success"
         );
+        localStorage.clear();
         timer = setTimeout(() => {
           location.reload();
         }, 1000);
@@ -285,26 +307,39 @@ function checkClick() {
     });
 }
 
+//Check om spillet er startet inden bokse kan krydses
+function checkStart() {
+  for (i = 0; i < values.players().length; i++) {
+    if (startCheck === 1) {
+      values.players()[i].style.pointerEvents = "visible";
+    } else if (startCheck === 0) {
+      Swal.fire(`Spillet er ikke startet`, "", "info");
+    }
+  }
+}
+
+
+
 //Fuld Spiller plade Func
 //Fortælling om hvor mange runder etc. person brugte.
 function fullPlate(boxes, v, g, player) {
-  for (i = g; i < v; i++) {}
-  if (boxes[i].checked) {
-    Swal.fire(
-      `<img src='img/trophy.gif'><p class='winRespond'><b>Tillykke</b><b> ${
-        values.playerNames()[player].value
-      }!</b><br><br> Du blev færdig på <br><br> ${values.round} Runder</p>`,
-      "",
-      ""
-    );
-    celebrate();
-    setTimeout(() => {
+  for (i = g; i < v; i++)
+    if (boxes[i].checked) {
+      Swal.fire(
+        `<img src='img/trophy.gif'><p class='winRespond'><b>Tillykke</b><b> ${
+          values.playerNames()[player].value
+        }!</b><br><br> Du blev færdig på <br><br> ${values.round} Runder</p>`,
+        "",
+        ""
+      );
       celebrate();
-    }, "1000");
-    setTimeout(() => {
-      celebrate();
-    }, "2000");
-  }
+      setTimeout(() => {
+        celebrate();
+      }, "1000");
+      setTimeout(() => {
+        celebrate();
+      }, "2000");
+    }
 }
 //Fuld Spiller plader
 //Spiler 1
@@ -339,6 +374,22 @@ function fullPlateFour() {
   let player = 3;
   fullPlate(boxes, v, g, player);
 }
+//Spiller 5
+function fullPlateFive() {
+  let boxes = document.querySelectorAll(".check input");
+  v = 164;
+  g = 131;
+  let player = 4;
+  fullPlate(boxes, v, g, player);
+}
+//Spiller 6
+function fullPlateSix() {
+  let boxes = document.querySelectorAll(".check input");
+  v = 199;
+  g = 164;
+  let player = 5;
+  fullPlate(boxes, v, g, player);
+}
 
 // Confetti Celebration
 function celebrate() {
@@ -367,11 +418,20 @@ document.querySelector(".shortExit").addEventListener("click", () => {
   document.querySelector(".information").classList.add("aniOut");
 });
 
-function ga() {
+function saveGame() {
   let saveRounds = (document.cookie = values.round);
-  localStorage.setItem(saveRounds);
-  JSON.stringify(values.round);
+  localStorage.setItem(values.round, saveRounds);
+  let saveNames = (document.cookie = values.playerNames()[p]);
+  localStorage.setItem(values.playerNames(), saveNames);
 }
-let storage = localStorage.getItem("hobby");
+let roundStorage = sessionStorage.getItem("saveRounds", "saveName");
 
-console.log(storage);
+document.querySelector('.dart-body').addEventListener("click", () => {
+  for (i = 0; i < values.checkBoxes().length; i++) {
+    if (startCheck === 1) {
+      values.checkBoxes()[i].style.pointerEvents = "visible";
+    } else if (startCheck === 0) {
+      Swal.fire(`Spillet er ikke startet <br> - Klik på startknappen`, "", "info");
+    }
+  }
+});
