@@ -1,5 +1,6 @@
-//Global variables
-//Display
+/* -------------------------------------------------------------------------- */
+/*                              Global variables                              */
+/* -------------------------------------------------------------------------- */
 const style = (ele, display) => {
   document.querySelector(ele).style.display = display;
 };
@@ -10,11 +11,15 @@ const remBut = document.querySelector(".remove");
 const nextBut = document.querySelector(".next");
 const prevBut = document.querySelector(".prev");
 const infoBut = document.querySelector(".info");
+const logBut = document.querySelector('.log');
 
-// Game Index & Values
+/* -------------------------------------------------------------------------- */
+/*                             Game Index & Values                            */
+/* -------------------------------------------------------------------------- */
 const values = {
   round: 1,
   player: 0,
+  game: 1,
   players: function () {
     return document.querySelectorAll(".player");
   },
@@ -29,10 +34,14 @@ const values = {
   },
 };
 // Hold eller single player selection
-//Player creation
+/* -------------------------------------------------------------------------- */
+/*                               Player creation                              */
+/* -------------------------------------------------------------------------- */
 const player = {
   name: "",
-  //Creating checkboxes
+  /* -------------------------------------------------------------------------- */
+  /*                             Creating checkboxes                            */
+  /* -------------------------------------------------------------------------- */
   callBoxes: function () {
     for (i = 0; i < 11; i++) {
       const checkBoxes = document.createElement("span");
@@ -41,7 +50,9 @@ const player = {
       checkBoxes.innerHTML = `<input type="checkbox"><input type="checkbox"/><input type="checkbox"/>`;
     }
   },
-  //Collecting Player Info
+  /* -------------------------------------------------------------------------- */
+  /*                           Collecting Player Info                           */
+  /* -------------------------------------------------------------------------- */
   callPlayer: function () {
     const addPlayer = document.createElement("div");
     addPlayer.className = "player";
@@ -52,7 +63,9 @@ const player = {
     player.callBoxes();
   },
 };
-//Sidepanel information
+/* -------------------------------------------------------------------------- */
+/*                            Sidepanel information                           */
+/* -------------------------------------------------------------------------- */
 document.querySelector(
   ".currentPlayer"
 ).innerHTML = `Nuværende spiller: <br><b>0</b></b>`;
@@ -60,7 +73,9 @@ document.querySelector(
   ".round"
 ).innerHTML = `Runde: <br><b>${values.round}</b>`;
 
-// Add Player
+/* -------------------------------------------------------------------------- */
+/*                                 Add Player                                 */
+/* -------------------------------------------------------------------------- */
 addBut.addEventListener("click", () => {
   (async () => {
     const { value: text } = await Swal.fire({
@@ -73,14 +88,16 @@ addBut.addEventListener("click", () => {
       player.name = text;
       player.callPlayer();
       playerExist();
-      saveGame();
+      
       return;
     }
-    Swal.fire(`En spiller kr;ver et navn`, "", "info");
+    Swal.fire(`En spiller kræver et navn`, "", "info");
   })();
 });
 
-// Remove Player
+/* -------------------------------------------------------------------------- */
+/*                                Remove Player                               */
+/* -------------------------------------------------------------------------- */
 remBut.addEventListener("click", () => {
   let i = values.players().length;
   let name = values.playerNames();
@@ -96,18 +113,26 @@ remBut.addEventListener("click", () => {
       if (result.isConfirmed) {
         values.players()[-1 + i].remove();
         playerExist();
-        saveGame();
+        
         return;
       }
       Swal.fire(`<b>${name[-1 + i].value}</b> blev ikke slettet`, "", "info");
-      saveGame();
+      
     });
   }
 });
 
-//Næste Spiller
+/* -------------------------------------------------------------------------- */
+/*                                Næste Spiller                               */
+/* -------------------------------------------------------------------------- */
 let p = 0;
 nextBut.addEventListener("click", () => {
+  next();
+});
+function next() {
+  /* if(values.players()[p].classList.contains('winPlayer')){
+    p+2;
+  } */
   p++;
   values.players()[p - 1].classList.remove("activePlayer");
   if (p === values.players().length) {
@@ -117,7 +142,7 @@ nextBut.addEventListener("click", () => {
     document.querySelector(
       ".round"
     ).innerHTML = `Runde: <br><b>${values.round}</b>`;
-    saveGame();
+    
   }
   values.player++;
   document.querySelector(
@@ -132,14 +157,18 @@ nextBut.addEventListener("click", () => {
     showConfirmButton: false,
     timer: 1000,
   });
+
   values.players()[p].classList.add("activePlayer");
-  saveGame();
-});
-//Forrige Spiller
+
+  
+}
+/* -------------------------------------------------------------------------- */
+/*                               Forrige Spiller                              */
+/* -------------------------------------------------------------------------- */
 prevBut.addEventListener("click", () => {
   if (p === 0) {
     p = 0;
-    saveGame();
+    
     return;
   }
   p--;
@@ -158,10 +187,12 @@ prevBut.addEventListener("click", () => {
   });
   values.players()[p].classList.add("activePlayer");
   values.players()[p + 1].classList.remove("activePlayer");
-  saveGame();
+  
 });
 
-// Hvis Spiller findes, lav Startknappen
+/* -------------------------------------------------------------------------- */
+/*                    Hvis Spiller findes, lav Startknappen                   */
+/* -------------------------------------------------------------------------- */
 function playerExist() {
   if (values.players().length > 0) {
     style(".start", "block");
@@ -169,15 +200,20 @@ function playerExist() {
   }
   style(".start", "none");
 }
-// Start DartGame
+/* -------------------------------------------------------------------------- */
+/*                               Start DartGame                               */
+/* -------------------------------------------------------------------------- */
 let startGame = false;
 let gameGoing = 0;
 let startCheck = 0;
-saveGame();
+
 startBut.addEventListener("click", () => {
-  
+  startDart();
+});
+function startDart() {
   if (!startGame) {
     startCheck++;
+    playerCount();
     Swal.fire(
       `Spillet er startet, <br> <b>${
         values.playerNames()[p].value
@@ -185,11 +221,13 @@ startBut.addEventListener("click", () => {
       "",
       "info"
     );
+    //Finder navn på spiller
     document.querySelector(
       ".currentPlayer"
     ).innerHTML = `Nuværende spiller: <br><b>${
       values.playerNames()[values.player].value
     }</b></b>`;
+    //Reset f
     checkClick();
     style(".add", "none");
     style(".remove", "none");
@@ -210,18 +248,31 @@ startBut.addEventListener("click", () => {
     startBut.innerHTML = "Forsæt spil";
   }
   startGame = !startGame;
-  //Tjekker om spillet er startet og aktiverer bokse.
+}
+/* -------------------------------------------------------------------------- */
+/*    Hvis spiller ikke har startet spillet for han pr'ver at s;tte point.    */
+/* -------------------------------------------------------------------------- */
+document.querySelector(".dart-body").addEventListener("click", () => {
   for (i = 0; i < values.checkBoxes().length; i++) {
-    if (startCheck === 1) {
-      values.checkBoxes()[i].style.pointerEvents = "visible";
-    } else if (startCheck === 0) {
-      values.checkBoxes()[i].style.pointerEvents = "none";
+    if (startCheck === 0) {
+      Swal.fire({
+        title: `Spillet er ikke startet <br> - <b>Vil du starte spillet?</b>`,
+        showDenyButton: true,
+        confirmButtonText: "Ja",
+        denyButtonText: `Nej`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          startDart();
+          return;
+        }
+      });
     }
   }
-  console.log(startGame);
 });
 
-//Genstart Spillet
+/* -------------------------------------------------------------------------- */
+/*                              Genstart Spillet                              */
+/* -------------------------------------------------------------------------- */
 document.querySelector(".restart").addEventListener("click", () => {
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
@@ -232,7 +283,7 @@ document.querySelector(".restart").addEventListener("click", () => {
   });
   swalWithBootstrapButtons
     .fire({
-      title: "Vil du genstarte spillet?",
+      title: "Vil du starte nyt spil?",
       text: "Spillets progression vil blive nulstillet!",
       icon: "question",
       showCancelButton: true,
@@ -247,7 +298,16 @@ document.querySelector(".restart").addEventListener("click", () => {
           "Et nyt spil starter",
           "success"
         );
-        localStorage.clear();
+        
+       
+        /* const gameSection = document.createElement("div");
+      document.querySelector(".shortcutBoard").appendChild(gameSection);
+      gameSection.classList.add('shortcut')
+      gameSection.innerHTML = `<h3><b>${values.game}. Spil</b></h3><h4>${
+        values.playerNames()[player].value
+      } - ${place} points</h4>`; */
+        /* localStorage.clear();
+        */
         timer = setTimeout(() => {
           location.reload();
         }, 1000);
@@ -263,7 +323,9 @@ document.querySelector(".restart").addEventListener("click", () => {
     });
 });
 
-// Dart mus
+/* -------------------------------------------------------------------------- */
+/*                                  Dart mus                                  */
+/* -------------------------------------------------------------------------- */
 const cursorRounded = document.querySelector(".rounded");
 const cursorPointed = document.querySelector(".pointed");
 
@@ -278,7 +340,9 @@ const moveCursor = (e) => {
 
 window.addEventListener("mousemove", moveCursor);
 
-//Fuld Række Function
+/* -------------------------------------------------------------------------- */
+/*                             Fuld Række Function                            */
+/* -------------------------------------------------------------------------- */
 let f = -2;
 function boxCheck(boxes, b, f, r) {
   if (boxes[b].checked && boxes[b + 1].checked && boxes[b + 2].checked) {
@@ -287,7 +351,9 @@ function boxCheck(boxes, b, f, r) {
     values.checkField()[r].classList.remove("scored");
   }
 }
-//Fuld Række For loop
+/* -------------------------------------------------------------------------- */
+/*                             Fuld Række For loop                            */
+/* -------------------------------------------------------------------------- */
 function fullRow() {
   for (i = 0; i < values.checkBoxes().length + 3; i += 3) {
     b = i;
@@ -298,7 +364,9 @@ function fullRow() {
     boxCheck(boxes, b, f, r);
   }
 }
-//Reset f, så Fuld Række kan indlæses igen.
+/* -------------------------------------------------------------------------- */
+/*                  Reset f, så Fuld Række kan indlæses igen.                 */
+/* -------------------------------------------------------------------------- */
 function checkClick() {
   for (i = 0; i < values.checkBoxes().length; i++)
     values.checkBoxes()[i].addEventListener("click", function res() {
@@ -307,23 +375,10 @@ function checkClick() {
     });
 }
 
-//Check om spillet er startet inden bokse kan krydses
-function checkStart() {
-  for (i = 0; i < values.players().length; i++) {
-    if (startCheck === 1) {
-      values.players()[i].style.pointerEvents = "visible";
-    } else if (startCheck === 0) {
-      Swal.fire(`Spillet er ikke startet`, "", "info");
-    }
-  }
-}
-
-
-
 //Fuld Spiller plade Func
 //Fortælling om hvor mange runder etc. person brugte.
-function fullPlate(boxes, v, g, player) {
-  for (i = g; i < v; i++)
+/* function fullPlate(boxes, v, g, player) {
+  for (i = g; i < v; i++) {
     if (boxes[i].checked) {
       Swal.fire(
         `<img src='img/trophy.gif'><p class='winRespond'><b>Tillykke</b><b> ${
@@ -340,9 +395,123 @@ function fullPlate(boxes, v, g, player) {
         celebrate();
       }, "2000");
     }
+  }
 }
+ */
+let place = 1;
+let score = 0;
+function fullPlate(boxes, v, g, player) {
+  for (i = g; i < v; i++)
+    if (
+      boxes[i].checked &&
+      boxes[i + 1].checked &&
+      boxes[i + 2].checked &&
+      boxes[i + 3].checked &&
+      boxes[i + 4].checked &&
+      boxes[i + 5].checked &&
+      boxes[i + 6].checked &&
+      boxes[i + 7].checked &&
+      boxes[i + 8].checked &&
+      boxes[i + 9].checked &&
+      boxes[i + 10].checked &&
+      boxes[i + 11].checked &&
+      boxes[i + 12].checked &&
+      boxes[i + 13].checked &&
+      boxes[i + 14].checked &&
+      boxes[i + 15].checked &&
+      boxes[i + 16].checked &&
+      boxes[i + 17].checked &&
+      boxes[i + 18].checked &&
+      boxes[i + 19].checked &&
+      boxes[i + 20].checked &&
+      boxes[i + 21].checked &&
+      boxes[i + 22].checked &&
+      boxes[i + 23].checked &&
+      boxes[i + 24].checked &&
+      boxes[i + 25].checked &&
+      boxes[i + 26].checked &&
+      boxes[i + 27].checked &&
+      boxes[i + 28].checked &&
+      boxes[i + 29].checked &&
+      boxes[i + 30].checked &&
+      boxes[i + 31].checked &&
+      boxes[i + 32].checked
+    ) {
+
+      values.players()[player].classList.add("winPlayer");
+      let placering = document.createElement("p");
+      placering.classList.add('placeReset');
+      values.players()[player].appendChild(placering);
+      placering.innerHTML = `${place}. pladsen`;
+      //
+      
+
+
+
+
+      localStorage.setItem('place', place);
+      let storagePoint = localStorage.getItem('place')
+      //
+       localStorage.setItem('name', values.playerNames()[player].value);
+      let storageNames = localStorage.getItem(values.playerNames()[player].value)
+       JSON.stringify(storageNames);
+      //
+      //
+      const historikSpiller = document.createElement("div");
+      historikSpiller.classList.add('scoreboard')
+      document.querySelector(".spillere").appendChild(historikSpiller) 
+historikSpiller.innerHTML = `<h2 class='saveName'>${localStorage.getItem('name')
+}</h2> <p>-</p><b class='savePoint'>${localStorage.getItem('place')} point</b>`;
+localStorage.getItem('player')
+       
+    
+
+      if(p + 1 == values.players().length){
+        values.round--;
+        next();
+        Swal.fire(
+          `<img src='img/trophy.gif'><p class='winRespond'><b>Tillykke</b><b> ${
+            values.playerNames()[player].value
+          }!</b><br><br>du tog ${place} pladsen<br><br>efter ${
+            values.round
+          } Runde </p>`,
+          "",
+          ""
+          );
+          values.round++;
+          place++;
+          document.querySelector(
+            ".round"
+          ).innerHTML = `Runde: <br><b>${values.round}</b>`;
+        return
+      }
+      next();
+      
+      Swal.fire(
+        `<img src='img/trophy.gif'><p class='winRespond'><b>Tillykke</b><b> ${
+          values.playerNames()[player].value
+        }!</b><br><br>du tog ${place} pladsen<br><br>efter ${
+          values.round
+        } Runde </p>`,
+        "",
+        ""
+      );
+
+      //
+      place++;
+      /* p++; */
+      values.players()[player].style.pointerEvents = "none";
+      celebrate();
+      setTimeout(() => {
+        celebrate();
+      }, "1000");
+
+    }
+}
+
 //Fuld Spiller plader
 //Spiler 1
+
 function fullPlateOne() {
   let boxes = document.querySelectorAll(".check input");
   v = 32;
@@ -350,45 +519,71 @@ function fullPlateOne() {
   let player = 0;
   fullPlate(boxes, v, g, player);
 }
+//Start game tæller spillere med et true index, og tilføjer click events
 //Spiller 2
 function fullPlateTwo() {
   let boxes = document.querySelectorAll(".check input");
-  v = 65;
-  g = 32;
+  v = 66;
+  g = 33;
   let player = 1;
   fullPlate(boxes, v, g, player);
+}
+function checkPlateTwo() {
+  values.players()[1].addEventListener("click", () => {
+    fullPlateTwo();
+  });
 }
 //Spiller 3
 function fullPlateThree() {
   let boxes = document.querySelectorAll(".check input");
-  v = 98;
-  g = 65;
+  v = 99;
+  g = 66;
   let player = 2;
   fullPlate(boxes, v, g, player);
+}
+function checkPlateThree() {
+  values.players()[2].addEventListener("click", () => {
+    fullPlateThree();
+  });
 }
 //Spiller 4
 function fullPlateFour() {
   let boxes = document.querySelectorAll(".check input");
-  v = 131;
-  g = 98;
+  v = 132;
+  g = 99;
   let player = 3;
   fullPlate(boxes, v, g, player);
+}
+function checkPlateFour() {
+  values.players()[3].addEventListener("click", () => {
+    fullPlateFour();
+  });
 }
 //Spiller 5
 function fullPlateFive() {
   let boxes = document.querySelectorAll(".check input");
-  v = 164;
-  g = 131;
+  v = 165;
+  g = 132;
   let player = 4;
   fullPlate(boxes, v, g, player);
+}
+function checkPlateFive() {
+  values.players()[4].addEventListener("click", () => {
+    fullPlateFive();
+  });
 }
 //Spiller 6
 function fullPlateSix() {
   let boxes = document.querySelectorAll(".check input");
-  v = 199;
-  g = 164;
+  v = 200;
+  g = 165;
   let player = 5;
   fullPlate(boxes, v, g, player);
+}
+function checkPlateSix() {
+  values.players()[5].addEventListener("click", () => {
+    fullPlateSix();
+  });
 }
 
 // Confetti Celebration
@@ -405,7 +600,9 @@ function celebrate() {
   });
 }
 
-//Spil Information boks
+/* -------------------------------------------------------------------------- */
+/*                            Spil Information boks                           */
+/* -------------------------------------------------------------------------- */
 //Åbne
 infoBut.addEventListener("click", () => {
   console.log("hej");
@@ -417,21 +614,90 @@ document.querySelector(".shortExit").addEventListener("click", () => {
   document.querySelector(".information").classList.remove("ani");
   document.querySelector(".information").classList.add("aniOut");
 });
+/* -------------------------------------------------------------------------- */
+/*                            Spil Historik boks                              */
+/* -------------------------------------------------------------------------- */
+//Åbne
+logBut.addEventListener("click", () => {
+  console.log("hej");
+  document.querySelector(".historik").classList.add("ani");
+  document.querySelector(".historik").classList.remove("aniOut");
+});
+//Lukke
+document.querySelector(".exitLog").addEventListener("click", () => {
+  document.querySelector(".historik").classList.remove("ani");
+  document.querySelector(".historik").classList.add("aniOut");
+});
+/* -------------------------------------------------------------------------- */
+/*                                  Upcomming                                 */
+/* -------------------------------------------------------------------------- */
 
-function saveGame() {
+/* function {
   let saveRounds = (document.cookie = values.round);
   localStorage.setItem(values.round, saveRounds);
   let saveNames = (document.cookie = values.playerNames()[p]);
   localStorage.setItem(values.playerNames(), saveNames);
-}
-let roundStorage = sessionStorage.getItem("saveRounds", "saveName");
+} */
+/* let roundStorage = sessionStorage.getItem("saveRounds", "saveName"); */
 
-document.querySelector('.dart-body').addEventListener("click", () => {
-  for (i = 0; i < values.checkBoxes().length; i++) {
-    if (startCheck === 1) {
-      values.checkBoxes()[i].style.pointerEvents = "visible";
-    } else if (startCheck === 0) {
-      Swal.fire(`Spillet er ikke startet <br> - Klik på startknappen`, "", "info");
+/*
+ */
+/* -------------------------------------------------------------------------- */
+/*                               Tæller spillere                              */
+/* -------------------------------------------------------------------------- */
+function playerCount() {
+  for (c = 0; c < values.players().length; c++)
+    switch (c) {
+      case 0:
+        values.players()[0].addEventListener("click", () => {
+          fullPlateOne();
+        });
+        break;
+      case 1:
+        values.players()[1].addEventListener("click", () => {
+          fullPlateTwo();
+        });
+        break;
+      case 2:
+        values.players()[2].addEventListener("click", () => {
+          fullPlateThree();
+        });
+        break;
+      case 3:
+        values.players()[3].addEventListener("click", () => {
+          fullPlateFour();
+        });
+        break;
+      case 4:
+        values.players()[4].addEventListener("click", () => {
+          fullPlateFive();
+        });
+        break;
+      case 5:
+        values.players()[5].addEventListener("click", () => {
+          fullPlateFive();
+        });
+        break;
     }
-  }
-});
+
+  /* p er value
+  
+  p = true */
+}
+
+
+
+
+
+//Tæller hver gang et hold har vundet og plusser
+//Print knap
+// 1 plads = 1 point.
+// 2 plads = 2 point.
+const date = new Date();
+let h = date.getHours();
+let m = date.getMinutes();
+let s = date.getSeconds();
+let day = date.getDate();
+let month = date.getMonth() + 1;
+let year = date.getFullYear();
+document.querySelector('.date').innerHTML = `Dato ${day}-${month} | ${h}:${m}`;

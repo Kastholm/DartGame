@@ -1,8 +1,33 @@
+
+@media only screen and (max-width: 40em) {
+     html {
+       font-size: 2.5vw;
+     }
+     body {
+     }
+     button {
+       font-size: 1em;
+     }
+   }
+   
+   /* @media screen and (min-width: 40em) {
+     html {
+       font-size: 1.3vw;
+     }
+   } */
+   @media screen and (max-width: 86em) {
+     html {
+       font-size: .9em;
+     }
+   }
+html{
+     overflow: hidden;
+}
 body{
      background-image: url('img/background.jpg');
      background-size: cover;
+     background-repeat: no-repeat;
     max-height: 100vh;
-   /*  overflow: hidden; */
     margin: 0;
     font-family: mono45-headline, monospace;
 font-weight: 700;
@@ -52,6 +77,7 @@ font-style: normal;
 font-size: 2.2rem;
 padding: 0.25em 0;
 min-width: 2em;
+
 }
 
 .player span:nth-child(even){
@@ -430,6 +456,7 @@ input[type='checkbox'] {
     margin: 0;
     cursor: pointer;
     font-size: 1.7rem;
+    pointer-events: none;
 }
 
 .rightPanel{
@@ -497,7 +524,7 @@ br {
      background-color: #992b2e !important;
 }
 
-.information{
+.information, .historik{
      text-align: center;
      position: fixed;
      inset: 12%;
@@ -512,6 +539,10 @@ border: 1px solid rgba(255, 255, 255, 0.451);
      overflow: scroll;
 transform: scale(0);
 }
+.historik {
+    
+}
+
 .ani {
      animation: popInfo .7s ease-out;
      animation-fill-mode: forwards;
@@ -520,18 +551,23 @@ transform: scale(0);
     transform: scale(0);
     transition: .5s;
 }
-.information h1 {
+.information h1, .historik h1 {
+     font-size: 3rem;
+     margin-bottom: 0;
+}
+.information h1 b, .historik h1 b {
      font-size: 3rem;
 }
-.information h1 b {
-     font-size: 3rem;
-}
-.information h2 {
+.information h2, .historik h2 {
      font-size: 1.5rem;
 }
 .information h2 b, h3 b {
      font-size: 1.7rem;
      color: rgb(110, 246, 110);
+}
+
+.historik p {
+     font-size: 2rem;
 }
 .informationBody{
      display: flex;
@@ -560,4 +596,48 @@ font-size: 1.2rem;
      100%{
           transform: scale(1)  ;
      }
+}
+
+.winPlayer{
+     position: relative;
+}
+.winPlayer span  {
+     background-color: rgb(45, 45, 45) !important;
+}
+.winPlayer p{
+     position: absolute;
+     top: 50%;
+     left: 20%;
+     font-size: 1.5rem;
+     background-color: black;
+     padding: 1em;
+}
+.winPlayer .empty .playerName{
+     background: linear-gradient(0deg, rgb(9, 66, 113) 0%, rgb(141, 97, 1) 100%);
+     color: #d5d5d5;
+}
+.spillere{
+     display: grid; place-content: center;
+}
+.spillere .scoreboard {
+    display: flex;
+    align-items: center;
+    font-size: 3rem;
+    height: 1.5em;
+    margin: 0 auto;
+}
+.spillere .scoreboard h2{
+     font-size: 2.5rem;
+}
+.spillere p {
+     margin: 0 1.2em;
+}
+.date{
+     font-size: 2.5rem !important;
+     color: rgb(228, 136, 86);
+     margin-top: 0;
+}
+
+.info {
+     display: none;
 }
