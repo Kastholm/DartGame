@@ -11,7 +11,7 @@ const remBut = document.querySelector(".remove");
 const nextBut = document.querySelector(".next");
 const prevBut = document.querySelector(".prev");
 const infoBut = document.querySelector(".info");
-const logBut = document.querySelector('.log');
+const logBut = document.querySelector(".log");
 
 /* -------------------------------------------------------------------------- */
 /*                             Game Index & Values                            */
@@ -88,7 +88,7 @@ addBut.addEventListener("click", () => {
       player.name = text;
       player.callPlayer();
       playerExist();
-      
+
       return;
     }
     Swal.fire(`En spiller kræver et navn`, "", "info");
@@ -113,11 +113,10 @@ remBut.addEventListener("click", () => {
       if (result.isConfirmed) {
         values.players()[-1 + i].remove();
         playerExist();
-        
+
         return;
       }
       Swal.fire(`<b>${name[-1 + i].value}</b> blev ikke slettet`, "", "info");
-      
     });
   }
 });
@@ -142,7 +141,6 @@ function next() {
     document.querySelector(
       ".round"
     ).innerHTML = `Runde: <br><b>${values.round}</b>`;
-    
   }
   values.player++;
   document.querySelector(
@@ -159,8 +157,6 @@ function next() {
   });
 
   values.players()[p].classList.add("activePlayer");
-
-  
 }
 /* -------------------------------------------------------------------------- */
 /*                               Forrige Spiller                              */
@@ -168,7 +164,7 @@ function next() {
 prevBut.addEventListener("click", () => {
   if (p === 0) {
     p = 0;
-    
+
     return;
   }
   p--;
@@ -187,7 +183,6 @@ prevBut.addEventListener("click", () => {
   });
   values.players()[p].classList.add("activePlayer");
   values.players()[p + 1].classList.remove("activePlayer");
-  
 });
 
 /* -------------------------------------------------------------------------- */
@@ -298,8 +293,7 @@ document.querySelector(".restart").addEventListener("click", () => {
           "Et nyt spil starter",
           "success"
         );
-        
-       
+
         /* const gameSection = document.createElement("div");
       document.querySelector(".shortcutBoard").appendChild(gameSection);
       gameSection.classList.add('shortcut')
@@ -307,7 +301,7 @@ document.querySelector(".restart").addEventListener("click", () => {
         values.playerNames()[player].value
       } - ${place} points</h4>`; */
         /* localStorage.clear();
-        */
+         */
         timer = setTimeout(() => {
           location.reload();
         }, 1000);
@@ -404,7 +398,7 @@ function fullPlate(boxes, v, g, player) {
   for (i = g; i < v; i++)
     if (
       boxes[i].checked &&
-      boxes[i + 1].checked &&
+      boxes[i + 1].checked  &&
       boxes[i + 2].checked &&
       boxes[i + 3].checked &&
       boxes[i + 4].checked &&
@@ -437,36 +431,49 @@ function fullPlate(boxes, v, g, player) {
       boxes[i + 31].checked &&
       boxes[i + 32].checked
     ) {
-
       values.players()[player].classList.add("winPlayer");
       let placering = document.createElement("p");
-      placering.classList.add('placeReset');
+      placering.classList.add("placeReset");
       values.players()[player].appendChild(placering);
       placering.innerHTML = `${place}. pladsen`;
+      // makes the historry array in the scope
+      let historyArray = [];
+      let historyJSON = localStorage.getItem("history");
+      // if exists append player or add to points
+      if (historyJSON) {
+        historyArray = JSON.parse(historyJSON);
+        let historikSpiller = historyArray.find(
+          (x) => x["playername"] == values.playerNames()[player].value
+        );
+        if (historikSpiller) {
+          historikSpiller.place++;
+        } else {
+          historyArray.push({
+            playername: values.playerNames()[player].value,
+            place: place,
+          });
+        }
+      } else {
+        historyArray = [
+          { playername: values.playerNames()[player].value, place: place },
+        ];
+      }
+      // always saves here
+      localStorage.setItem("history", JSON.stringify(historyArray));
+
+      // localStorage.setItem("place", place);
+      // let storagePoint = localStorage.getItem("place");
+      // //
+      // localStorage.setItem("name", values.playerNames()[player].value);
+      // let storageNames = localStorage.getItem(
+      //   values.playerNames()[player].value
+      // );
       //
-      
-
-
-
-
-      localStorage.setItem('place', place);
-      let storagePoint = localStorage.getItem('place')
       //
-       localStorage.setItem('name', values.playerNames()[player].value);
-      let storageNames = localStorage.getItem(values.playerNames()[player].value)
-       JSON.stringify(storageNames);
-      //
-      //
-      const historikSpiller = document.createElement("div");
-      historikSpiller.classList.add('scoreboard')
-      document.querySelector(".spillere").appendChild(historikSpiller) 
-historikSpiller.innerHTML = `<h2 class='saveName'>${localStorage.getItem('name')
-}</h2> <p>-</p><b class='savePoint'>${localStorage.getItem('place')} point</b>`;
-localStorage.getItem('player')
-       
-    
 
-      if(p + 1 == values.players().length){
+      localStorage.getItem("player");
+
+      if (p + 1 == values.players().length) {
         values.round--;
         next();
         Swal.fire(
@@ -477,16 +484,20 @@ localStorage.getItem('player')
           } Runde </p>`,
           "",
           ""
-          );
-          values.round++;
-          place++;
-          document.querySelector(
-            ".round"
-          ).innerHTML = `Runde: <br><b>${values.round}</b>`;
-        return
+        );
+        values.round++;
+        place++;
+        document.querySelector(
+          ".round"
+        ).innerHTML = `Runde: <br><b>${values.round}</b>`;
+        celebrate();
+        setTimeout(() => {
+          celebrate();
+        }, "1000");
+        return;
       }
       next();
-      
+
       Swal.fire(
         `<img src='img/trophy.gif'><p class='winRespond'><b>Tillykke</b><b> ${
           values.playerNames()[player].value
@@ -505,7 +516,6 @@ localStorage.getItem('player')
       setTimeout(() => {
         celebrate();
       }, "1000");
-
     }
 }
 
@@ -595,7 +605,7 @@ function celebrate() {
   //Colors
   jsConfetti.addConfetti({
     emojis: ["🎯", "🎯", "🎯", "🎯", "🎯", "🎯"],
-    emojiSize: 100,
+    emojiSize: 50,
     confettiNumber: 20,
   });
 }
@@ -622,6 +632,28 @@ logBut.addEventListener("click", () => {
   console.log("hej");
   document.querySelector(".historik").classList.add("ani");
   document.querySelector(".historik").classList.remove("aniOut");
+  const historikSpiller = document.createElement("div");
+  /* const historikSpiller2 = document.createElement("div");
+  const historikSpiller3 = document.createElement("div"); */
+  historikSpiller.classList.add("scoreboard");
+  /* historikSpiller2.classList.add("scoreboard");
+  historikSpiller3.classList.add("scoreboard"); */
+  // gets the JSON from the storage
+  let historyJSON2 = localStorage.getItem("history");
+  if (historyJSON2) {
+    // if exsists makes into an array
+    let historyArray2 = JSON.parse(historyJSON2);
+    console.log(historyArray2);
+    for (let i in historyArray2) {
+      // write out the historic players
+      document.querySelector(".spillere").appendChild(historikSpiller);
+      /* document.querySelector(".spillere").appendChild(historikSpiller2);
+      document.querySelector(".spillere").appendChild(historikSpiller3); */
+      historikSpiller.innerHTML = `<h2 class='saveName'>${historyArray2[i].playername}</h2> <p>-</p><b class='savePoint'>${historyArray2[i].place} point</b>`;
+      /* historikSpiller2.innerHTML = `<h2 class='saveName'>${historyArray2[1].playername}</h2> <p>-</p><b class='savePoint'>${historyArray2[1].place} point</b>`;
+      historikSpiller3.innerHTML = `<h2 class='saveName'>${historyArray2[2].playername}</h2> <p>-</p><b class='savePoint'>${historyArray2[2].place} point</b>`; */
+    }
+  }
 });
 //Lukke
 document.querySelector(".exitLog").addEventListener("click", () => {
@@ -685,10 +717,6 @@ function playerCount() {
   p = true */
 }
 
-
-
-
-
 //Tæller hver gang et hold har vundet og plusser
 //Print knap
 // 1 plads = 1 point.
@@ -700,4 +728,4 @@ let s = date.getSeconds();
 let day = date.getDate();
 let month = date.getMonth() + 1;
 let year = date.getFullYear();
-document.querySelector('.date').innerHTML = `Dato ${day}-${month} | ${h}:${m}`;
+document.querySelector(".date").innerHTML = `Dato ${day}-${month} | ${h}:${m}`;
