@@ -15,9 +15,10 @@
     <link rel="stylesheet" href="https://use.typekit.net/ctn4skt.css" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="html2canvas.min.js" defer></script>
   </head>
-  <body id="ola">
+  <body id="capture">
     <!-- <header>
   <li>Nuværende Spiller :</li>
   <li>Runde :</li>
@@ -75,8 +76,9 @@
               Start Spil<i class="fa-solid fa-arrows-rotate"></i>
             </button>
             <button class="restart">
-              Genstart Spil<i class="fa-solid fa-arrows-rotate"></i>
+              Nyt Spil<i class="fa-solid fa-arrows-rotate"></i>
             </button>
+           
           </div>
         </div>
       </div>
@@ -123,47 +125,19 @@
         <h2>
           se resultater fra sidste spil samt highscores(under opbygning)
         </h2>
+        </div>
         <button class="exitLog">luk</button>
-        <button class="exitLog">Gem spil</button>
-        <!-- <div class='scoreboard'></div>
-        <div class='scoreboard sTwo'></div>
-        <div class='scoreboard sThree'></div>
-        <h1 class="playerOne"></h1> -->
-      </div>
+        <button class="saveBtn">Gem spil</button>
       <div class="informationBody historikBody">
         <div class="shortcutBoard">
           <h3><b>1. Spil</b></h3>
         </div>
-        <!-- <div class="shortcut">
-          <h3><b>2. Spil</b></h3>
-          <h4>Jesper - 3 point</h4>
-          <h4>Jesper - 3 point</h4>
-          <h4>Jesper - 3 point</h4>
-          <h4>Jesper - 3 point</h4>
-        </div>
-        <div class="shortcut">
-          <h3><b>2. Spil</b></h3>
-          <h4>Jesper - 3 point</h4>
-          <h4>Jesper - 3 point</h4>
-          <h4>Jesper - 3 point</h4>
-          <h4>Jesper - 3 point</h4>
-        </div>
-        <div class="shortcut">
-          <h3><b>2. Spil</b></h3>
-          <h4>Jesper - 3 point</h4>
-          <h4>Jesper - 3 point</h4>
-          <h4>Jesper - 3 point</h4>
-          <h4>Jesper - 3 point</h4>
-        </div>
-        <div class="shortcut miniSpil">
-          <h3><b>2. Spil</b></h3>
-          <h4>Jesper - 3 point</h4>
-          <h4>Jesper - 3 point</h4>
-          <h4>Jesper - 3 point</h4>
-          <h4>Jesper - 3 point</h4>
-        </div> -->
       </div>
     </div>
-
+<div class="imgSaver">
+  <h1>Højreklik på billedet og gem billede på computeren</h1>
+  <h2>Klik på Tilbage for at vende tilbage til spillet</h2>
+  <button class="backBut">Tilbage</button>
+</div>
   </body>
 </html>

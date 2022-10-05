@@ -12,6 +12,8 @@ const nextBut = document.querySelector(".next");
 const prevBut = document.querySelector(".prev");
 const infoBut = document.querySelector(".info");
 const logBut = document.querySelector(".log");
+const saveBut = document.querySelector('.saveBtn')
+const backBut = document.querySelector('.backBut')
 
 /* -------------------------------------------------------------------------- */
 /*                             Game Index & Values                            */
@@ -57,7 +59,7 @@ const player = {
     const addPlayer = document.createElement("div");
     addPlayer.className = "player";
     document.querySelector(".dart-body").appendChild(addPlayer);
-    addPlayer.innerHTML = `<span class="empty"><input class='playerName' value='${player.name}'/>
+    addPlayer.innerHTML = `<span class="empty"><input class='playerName' value='${player.name.toUpperCase()}'/>
     </span>
     `;
     player.callBoxes();
@@ -274,45 +276,93 @@ document.querySelector(".restart").addEventListener("click", () => {
       confirmButton: "btn btn-success",
       cancelButton: "btn btn-danger",
     },
-    buttonsStyling: false,
+    buttonsStyling: true,
   });
   swalWithBootstrapButtons
     .fire({
-      title: "Vil du starte nyt spil?",
-      text: "Spillets progression vil blive nulstillet!",
-      icon: "question",
+      title: `<h2 style='color: red '>VIGTIGT!</h2> <br><h5>Nyt spil med samme spillere, <br><b>klik Nyt Spil</b></br></h5><br><h5>Genstart spil og slet historik, <br><b style='color: red ' >klik Slet Spil</b></br></h5>`,
+      text: ``,
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Ja, nyt spil!",
-      cancelButtonText: "Nej, forsæt spil!",
+      confirmButtonText: "Nyt Spil",
+      cancelButtonText: "Slet Spil",
       reverseButtons: true,
     })
     .then((result) => {
-      if (result.isConfirmed) {
-        swalWithBootstrapButtons.fire(
-          "Genstarter",
-          "Et nyt spil starter",
-          "success"
-        );
+      if (result.isConfirmed) { 
+        function regen() {
+          // gets the JSON from the storage
+        let historyJSON2 = localStorage.getItem("history");
+        if (historyJSON2) {
+        // if exsists makes into an array
+        let historyArray2 = JSON.parse(historyJSON2);
+        console.log(historyArray2);
+        for (let i in historyArray2) {
+        // write out the historic players
+        console.log(historyArray2[i].playername)
+        const addPlayer = document.createElement("div");
+        addPlayer.className = "player";
+        document.querySelector(".dart-body").appendChild(addPlayer);
+        addPlayer.innerHTML = `<span class="empty"><input class='playerName' value='${historyArray2[i].playername}'/>
+        </span>
+        `;
+        player.callBoxes();
+        }
+        }
+        
+      }
 
-        /* const gameSection = document.createElement("div");
-      document.querySelector(".shortcutBoard").appendChild(gameSection);
-      gameSection.classList.add('shortcut')
-      gameSection.innerHTML = `<h3><b>${values.game}. Spil</b></h3><h4>${
-        values.playerNames()[player].value
-      } - ${place} points</h4>`; */
-        /* localStorage.clear();
-         */
-        timer = setTimeout(() => {
-          location.reload();
-        }, 1000);
-        return;
+      values.players().forEach((player) => { 
+        player.remove()
+      })
+
+      /* let pl = values.players().length;
+        for(l = 0 ; l < pl; l++){
+          l = 0;
+          values.players()[l].remove()
+        } */
+        style(".add", "block");
+         style(".remove", "block");
+         style(".next", "none");
+         style(".prev", "none");
+
+        document.querySelector(
+          ".round"
+        ).innerHTML = `Runde: <br><b>${values.round}</b>`;
+        values.round = 1;
+          startGame = false;
+          gameGoing = 0;
+          startCheck = 0;
+          startBut.innerHTML = "Start Spil";
+
+          regen();
+          values.game++;
+          Swal.fire({
+            title: `<b>Genstartet</b>
+            Klik start når du er klar til at starte <br><b>spil nr. ${values.game}`,
+            icon: 'success',
+            confirmButtonText: "Start nyt Spil",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              playerExist();
+              return;
+            }
+            Swal.fire(`blev ikke slettet`, "", "info");
+          });
+
+         
+         return;
       }
       {
         swalWithBootstrapButtons.fire(
-          "Annuleret",
-          "Tidligere spil forsætter",
+          "Genstartet",
+          "Tidligere spil slettet",
           "error"
         );
+        localStorage.clear();
+        setTimeout(() => {
+          location.reload();
+        }, 1000)
       }
     });
 });
@@ -398,7 +448,7 @@ function fullPlate(boxes, v, g, player) {
   for (i = g; i < v; i++)
     if (
       boxes[i].checked &&
-      boxes[i + 1].checked  &&
+      boxes[i + 1].checked /* &&
       boxes[i + 2].checked &&
       boxes[i + 3].checked &&
       boxes[i + 4].checked &&
@@ -429,13 +479,14 @@ function fullPlate(boxes, v, g, player) {
       boxes[i + 29].checked &&
       boxes[i + 30].checked &&
       boxes[i + 31].checked &&
-      boxes[i + 32].checked
+      boxes[i + 32].checked */
     ) {
       values.players()[player].classList.add("winPlayer");
       let placering = document.createElement("p");
       placering.classList.add("placeReset");
       values.players()[player].appendChild(placering);
       placering.innerHTML = `${place}. pladsen`;
+      values.players()[player].style.pointerEvents = "none";
       // makes the historry array in the scope
       let historyArray = [];
       let historyJSON = localStorage.getItem("history");
@@ -511,7 +562,7 @@ function fullPlate(boxes, v, g, player) {
       //
       place++;
       /* p++; */
-      values.players()[player].style.pointerEvents = "none";
+      
       celebrate();
       setTimeout(() => {
         celebrate();
@@ -615,7 +666,6 @@ function celebrate() {
 /* -------------------------------------------------------------------------- */
 //Åbne
 infoBut.addEventListener("click", () => {
-  console.log("hej");
   document.querySelector(".information").classList.add("ani");
   document.querySelector(".information").classList.remove("aniOut");
 });
@@ -632,12 +682,19 @@ logBut.addEventListener("click", () => {
   console.log("hej");
   document.querySelector(".historik").classList.add("ani");
   document.querySelector(".historik").classList.remove("aniOut");
-  const historikSpiller = document.createElement("div");
-  /* const historikSpiller2 = document.createElement("div");
-  const historikSpiller3 = document.createElement("div"); */
-  historikSpiller.classList.add("scoreboard");
-  /* historikSpiller2.classList.add("scoreboard");
-  historikSpiller3.classList.add("scoreboard"); */
+  historyReceive()
+});
+//Lukke
+document.querySelector(".exitLog").addEventListener("click", () => {
+  document.querySelector(".historik").classList.remove("ani");
+  document.querySelector(".historik").classList.add("aniOut");
+
+  let remLog = document.querySelectorAll(".scoreboard");
+  for(o = 0; o < remLog.length; o++)
+  remLog[o].remove();
+});
+function historyReceive() {
+
   // gets the JSON from the storage
   let historyJSON2 = localStorage.getItem("history");
   if (historyJSON2) {
@@ -646,20 +703,14 @@ logBut.addEventListener("click", () => {
     console.log(historyArray2);
     for (let i in historyArray2) {
       // write out the historic players
-      document.querySelector(".spillere").appendChild(historikSpiller);
-      /* document.querySelector(".spillere").appendChild(historikSpiller2);
-      document.querySelector(".spillere").appendChild(historikSpiller3); */
+      const historikSpiller = document.createElement("div");
+      historikSpiller.classList.add("scoreboard");
       historikSpiller.innerHTML = `<h2 class='saveName'>${historyArray2[i].playername}</h2> <p>-</p><b class='savePoint'>${historyArray2[i].place} point</b>`;
-      /* historikSpiller2.innerHTML = `<h2 class='saveName'>${historyArray2[1].playername}</h2> <p>-</p><b class='savePoint'>${historyArray2[1].place} point</b>`;
-      historikSpiller3.innerHTML = `<h2 class='saveName'>${historyArray2[2].playername}</h2> <p>-</p><b class='savePoint'>${historyArray2[2].place} point</b>`; */
+      document.querySelector(".spillere").appendChild(historikSpiller);
     }
   }
-});
-//Lukke
-document.querySelector(".exitLog").addEventListener("click", () => {
-  document.querySelector(".historik").classList.remove("ani");
-  document.querySelector(".historik").classList.add("aniOut");
-});
+
+}
 /* -------------------------------------------------------------------------- */
 /*                                  Upcomming                                 */
 /* -------------------------------------------------------------------------- */
@@ -717,10 +768,6 @@ function playerCount() {
   p = true */
 }
 
-//Tæller hver gang et hold har vundet og plusser
-//Print knap
-// 1 plads = 1 point.
-// 2 plads = 2 point.
 const date = new Date();
 let h = date.getHours();
 let m = date.getMinutes();
@@ -729,3 +776,19 @@ let day = date.getDate();
 let month = date.getMonth() + 1;
 let year = date.getFullYear();
 document.querySelector(".date").innerHTML = `Dato ${day}-${month} | ${h}:${m}`;
+
+
+ saveBut.addEventListener('click', () => {  
+   html2canvas(document.querySelector(".historik")).then(canvas => {
+    document.querySelector('.imgSaver').style.display = 'block'
+   document.querySelector('.imgSaver').appendChild(canvas)
+   /* let image = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream')
+   console.log(image)
+   window.location.href=image; */
+   console.log('gg')
+  }); 
+ } )
+
+ backBut.addEventListener('click', () => { 
+   document.querySelector('.imgSaver').style.display = 'none' 
+  } )
