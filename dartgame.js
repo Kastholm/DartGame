@@ -448,7 +448,7 @@ function fullPlate(boxes, v, g, player) {
   for (i = g; i < v; i++)
     if (
       boxes[i].checked &&
-      boxes[i + 1].checked /* &&
+      boxes[i + 1].checked &&
       boxes[i + 2].checked &&
       boxes[i + 3].checked &&
       boxes[i + 4].checked &&
@@ -479,7 +479,7 @@ function fullPlate(boxes, v, g, player) {
       boxes[i + 29].checked &&
       boxes[i + 30].checked &&
       boxes[i + 31].checked &&
-      boxes[i + 32].checked */
+      boxes[i + 32].checked
     ) {
       values.players()[player].classList.add("winPlayer");
       let placering = document.createElement("p");
