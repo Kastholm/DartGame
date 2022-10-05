@@ -12,8 +12,8 @@ const nextBut = document.querySelector(".next");
 const prevBut = document.querySelector(".prev");
 const infoBut = document.querySelector(".info");
 const logBut = document.querySelector(".log");
-const saveBut = document.querySelector('.saveBtn')
-const backBut = document.querySelector('.backBut')
+const saveBut = document.querySelector(".saveBtn");
+const backBut = document.querySelector(".backBut");
 
 /* -------------------------------------------------------------------------- */
 /*                             Game Index & Values                            */
@@ -289,69 +289,68 @@ document.querySelector(".restart").addEventListener("click", () => {
       reverseButtons: true,
     })
     .then((result) => {
-      if (result.isConfirmed) { 
+      if (result.isConfirmed) {
         function regen() {
           // gets the JSON from the storage
-        let historyJSON2 = localStorage.getItem("history");
-        if (historyJSON2) {
-        // if exsists makes into an array
-        let historyArray2 = JSON.parse(historyJSON2);
-        console.log(historyArray2);
-        for (let i in historyArray2) {
-        // write out the historic players
-        console.log(historyArray2[i].playername)
-        const addPlayer = document.createElement("div");
-        addPlayer.className = "player";
-        document.querySelector(".dart-body").appendChild(addPlayer);
-        addPlayer.innerHTML = `<span class="empty"><input class='playerName' value='${historyArray2[i].playername}'/>
+          let historyJSON2 = localStorage.getItem("history");
+          if (historyJSON2) {
+            // if exsists makes into an array
+            let historyArray2 = JSON.parse(historyJSON2);
+            console.log(historyArray2);
+            for (let i in historyArray2) {
+              // write out the historic players
+              console.log(historyArray2[i].playername);
+              const addPlayer = document.createElement("div");
+              addPlayer.className = "player";
+              document.querySelector(".dart-body").appendChild(addPlayer);
+              addPlayer.innerHTML = `<span class="empty"><input class='playerName' value='${historyArray2[i].playername}'/>
         </span>
         `;
-        player.callBoxes();
+              player.callBoxes();
+            }
+          }
         }
-        }
-        
-      }
 
-      values.players().forEach((player) => { 
-        player.remove()
-      })
+        values.players().forEach((player) => {
+          player.remove();
+        });
 
-      /* let pl = values.players().length;
+        /* let pl = values.players().length;
         for(l = 0 ; l < pl; l++){
           l = 0;
           values.players()[l].remove()
         } */
         style(".add", "block");
-         style(".remove", "block");
-         style(".next", "none");
-         style(".prev", "none");
+        style(".remove", "block");
+        style(".next", "none");
+        style(".prev", "none");
 
+        values.round = 1;
         document.querySelector(
           ".round"
         ).innerHTML = `Runde: <br><b>${values.round}</b>`;
-        values.round = 1;
-          startGame = false;
-          gameGoing = 0;
-          startCheck = 0;
-          startBut.innerHTML = "Start Spil";
+        startGame = false;
+        gameGoing = 0;
+        startCheck = 0;
+        startBut.innerHTML = "Start Spil";
 
-          regen();
-          values.game++;
-          Swal.fire({
-            title: `<b>Genstartet</b>
+        regen();
+        values.game++;
+        Swal.fire({
+          title: `<b>Genstartet</b>
             Klik start når du er klar til at starte <br><b>spil nr. ${values.game}`,
-            icon: 'success',
-            confirmButtonText: "Start nyt Spil",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              playerExist();
-              return;
-            }
-            Swal.fire(`blev ikke slettet`, "", "info");
-          });
+          icon: "success",
+          confirmButtonText: "Start nyt Spil",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            playerExist();
 
-         
-         return;
+            return;
+          }
+          Swal.fire(`blev ikke slettet`, "", "info");
+        });
+
+        return;
       }
       {
         swalWithBootstrapButtons.fire(
@@ -362,7 +361,7 @@ document.querySelector(".restart").addEventListener("click", () => {
         localStorage.clear();
         setTimeout(() => {
           location.reload();
-        }, 1000)
+        }, 1000);
       }
     });
 });
@@ -562,7 +561,7 @@ function fullPlate(boxes, v, g, player) {
       //
       place++;
       /* p++; */
-      
+
       celebrate();
       setTimeout(() => {
         celebrate();
@@ -682,7 +681,7 @@ logBut.addEventListener("click", () => {
   console.log("hej");
   document.querySelector(".historik").classList.add("ani");
   document.querySelector(".historik").classList.remove("aniOut");
-  historyReceive()
+  historyReceive();
 });
 //Lukke
 document.querySelector(".exitLog").addEventListener("click", () => {
@@ -690,11 +689,9 @@ document.querySelector(".exitLog").addEventListener("click", () => {
   document.querySelector(".historik").classList.add("aniOut");
 
   let remLog = document.querySelectorAll(".scoreboard");
-  for(o = 0; o < remLog.length; o++)
-  remLog[o].remove();
+  for (o = 0; o < remLog.length; o++) remLog[o].remove();
 });
 function historyReceive() {
-
   // gets the JSON from the storage
   let historyJSON2 = localStorage.getItem("history");
   if (historyJSON2) {
@@ -709,7 +706,6 @@ function historyReceive() {
       document.querySelector(".spillere").appendChild(historikSpiller);
     }
   }
-
 }
 /* -------------------------------------------------------------------------- */
 /*                                  Upcomming                                 */
@@ -777,18 +773,17 @@ let month = date.getMonth() + 1;
 let year = date.getFullYear();
 document.querySelector(".date").innerHTML = `Dato ${day}-${month} | ${h}:${m}`;
 
-
- saveBut.addEventListener('click', () => {  
-   html2canvas(document.querySelector(".historik")).then(canvas => {
-    document.querySelector('.imgSaver').style.display = 'block'
-   document.querySelector('.imgSaver').appendChild(canvas)
-   /* let image = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream')
+saveBut.addEventListener("click", () => {
+  html2canvas(document.querySelector(".historik")).then((canvas) => {
+    document.querySelector(".imgSaver").style.display = "block";
+    document.querySelector(".imgSaver").appendChild(canvas);
+    /* let image = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream')
    console.log(image)
    window.location.href=image; */
-   console.log('gg')
-  }); 
- } )
+    console.log("gg");
+  });
+});
 
- backBut.addEventListener('click', () => { 
-   document.querySelector('.imgSaver').style.display = 'none' 
-  } )
+backBut.addEventListener("click", () => {
+  document.querySelector(".imgSaver").style.display = "none";
+});
