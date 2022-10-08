@@ -787,3 +787,21 @@ saveBut.addEventListener("click", () => {
 backBut.addEventListener("click", () => {
   document.querySelector(".imgSaver").style.display = "none";
 });
+
+//Lave et helt nyt spil til multiplayer.
+//
+// Laveste point skal start i næste spil. osv.
+// 1 spiller færdig, resterende spillere mangler samme antal kryder = highscore spil (Højest point) får 2.pladsen.
+// Turnering(Dartskive(normal dart)(udskriver værdi));
+// Historik udvidelse.  Runder, Point(på dagen), point(samlet(1. pladsen = 1 point(ikke samlede værdi af 6. spil)) ), runder(over året).
+//færreste point spiller først.
+// Pil taste genveje.
+// hurtigere næste spiller
+// Spiller 1 og Spiller 2 på samme hold. Skifter for hver tur.
+//Optimere mest til tablet.
+//Genstart plads placering, slet class med winner.
+//
+//Opdel single spiller og multi (så værdier ikke samles)
+//
+//Jesper/Jacob, Lars/Razzer, Morten/Torben ( Altids point ) && Dagens spil (6 spil)(Oktober);
+//Jesper/Jacob = 17, Lars/Razzer = 15, Morten/Torben = 16. // 
